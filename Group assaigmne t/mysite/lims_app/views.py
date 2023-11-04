@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 def home(request):
-    return render(request, "index.html", context={})
+    return render(request, "index.html", context={"current_tab": "home"})
 
 def shopping(request):
     return HttpResponse("welcome to shopping")
