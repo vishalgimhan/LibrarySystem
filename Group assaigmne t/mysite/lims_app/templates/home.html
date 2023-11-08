@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% extends "index.html" %}
+{% load static %}
+
+
+{% block main_content %}
+
+<div class="jumbotron">
+  <div class="container">
+    <img src="{% static '/LIMS_LOGO.png' %} " class="roundered float-start "   alt="LIMS" height="200" style="margin-right: 10px;">
+    <h1 class="display-4"> Hello, readers!</h1>
+    <p> Welcome to University of Moratuwa Library. We have a larger collection of books to cater the reading needs of all kinds of readers.</p>
+    <p><a role="button" href="#" class="btn btn-primary btn-lg">Browse our collection>>  </a> </p>
+  </div>
+
+</div>
+
+<div class="container ">
+    <div class="row">
+      <div class="col">
+        <h2>Why reading is important?</h2>
+          <p>Reading is important as it enhances knowledge, expands vocabulary, and improves critical thinking. It exposes us to diverse ideas, cultures, and perspectives, fostering empathy and understanding. Reading also enhances communication skills and is a fundamental tool for learning and personal growth.</p>
+      </div>
+      <div class="col">
+        <h2>Key benefits</h2>
+        <ul>
+            <li>Improve mental health</li>
+            <li>Prevents cognitive decline</li>
+            <li>Increase your vocabulary and comprehensive skills</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h2>Thought for the day!</h2>
+        <p>"If you want to get laid, go to college. If you want an education, go to the library."
+
+            - Frank Zappa</p>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
