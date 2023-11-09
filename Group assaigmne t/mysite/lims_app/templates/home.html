@@ -2,26 +2,25 @@
 {% extends "index.html" %}
 {% load static %}
 
-
 {% block main_content %}
 
-<div class="jumbotron">
-  <div class="container">
-    <img src="{% static '/LIMS_LOGO.png' %} " class="roundered float-start "   alt="LIMS" height="170" style="margin-right: 10px;">
+<main role="main">
+  <div class="jumbotron">
+    <div class="container">
+      <img src="{% static '/LIMS_LOGO.png' %} " class="roundered float-start" alt="LIMS" height="170" style="margin-right: 10px;">
       <h1 class="display-5"><b> Hello Fellow Readers!</b></h1>
-    <p style="font-size: 18px"> Welcome to University of Moratuwa Library. We have a larger collection of books to cater the reading needs of all kinds of readers.</p>
-    <p><a role="button" href="#" class="btn btn-danger" style="background-color: #A73118;">Browse our collection >> </a></p>
-
+      <p style="font-size: 18px"> Welcome to University of Moratuwa Library. We have a larger collection of books to cater the reading needs of all kinds of readers.</p>
+      <p><a role="button" href="#" class="btn btn-danger" style="background-color: #A73118;">Browse our collection >> </a></p>
+    </div>
   </div>
 
-</div>
-
-<div class="container ">
+  <div class="container ">
     <div class="row">
       <div class="col">
         <h4>Why reading is important?</h4>
           <p>Reading is important as it enhances knowledge, expands vocabulary, and improves critical thinking. It exposes us to diverse ideas, cultures, and perspectives, fostering empathy and understanding. Reading also enhances communication skills and is a fundamental tool for learning and personal growth.</p>
       </div>
+      
       <div class="col">
         <h4>Key benefits</h4>
         <ul>
@@ -30,17 +29,18 @@
             <li>Increase your vocabulary and comprehensive skills</li>
         </ul>
       </div>
+      
       <div class="col">
         <h4>Thought for the day!</h4>
         <p>"Libraries store the energy that fuels the imagination.They open up windows to the world and inspire us to explore and achieve,and contribute to improving our quality of life." <br><b>- Sidney Sheldon</b> </p>
       </div>
     </div>
-     <hr>
+    <hr>
   </div>
- </main>
+</main>
+
 <footer class ="container">
  <p>@UoM 2023</p>
-
 </footer>
 
 {% endblock %}
