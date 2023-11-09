@@ -16,8 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from .views import *
+
 urlpatterns = [
+    path('', home),
     path('home', home),
-    path("shop", shopping),
-    path('save', save_student)
+    path('readers', readers_tab),
+    path('save', save_student),
+    path('readers/add', save_reader),
+    path('books', books_tab),
+    path('mybag', mybag_tab),
+    path('returns', returns_tab),
 ]
