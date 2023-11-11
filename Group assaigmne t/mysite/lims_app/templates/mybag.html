@@ -27,26 +27,31 @@
 
     <div class="col-md-8">
         <!-- Display user information when Reader ID is provided -->
-        <div class="card" style="margin-top: 20px; padding: 20px; height: 60vh; overflow-y: auto;">
-            <h4>Reader Information</h4>
-            <p><strong>Reader ID:</strong> {{ reader_info.reader_id }}</p>
-
-            <!-- Search form beside the name -->
-            <form class="d-flex" role="search" method="GET" action="">
-                <input class="form-control me-2" type="search" placeholder="Enter Reader ID" aria-label="Search" name="reader_id">
-                <button class="btn btn-outline-primary" type="submit">Go</button>
+        <div class="card" style="margin-top: 20px; padding: 20px; height: 60vh; overflow-y: auto; background-color: #EDEDED; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+            <h4 style="text-align: center;">Reader Information</h4>
+            <form class="mb-3" role="search" method="GET" action="">
+                <div class="mb-3">
+                    <label for="reader_id" class="form-label"><strong>Reader ID:</strong></label>
+                    <input type="text" class="form-control" id="reader_id" placeholder="Enter Reader ID" name="reader_id">
+                </div>
+                <div class="d-flex justify-content-between">
+                    <button class="btn btn-outline-primary" type="submit">Go</button>
+                </div>
             </form>
-
             <p><strong>Name:</strong> {{ reader_info.reader_name }}</p>
             <p><strong>Contact:</strong> {{ reader_info.reader_contact }}</p>
             <p><strong>Reference ID:</strong> {{ reader_info.reference_id }}</p>
-            <p><strong>Start Date & Time:</strong> {{ reader_info.start_date }}</p>
-            <p><strong>Return Due Date & Time:</strong> {{ reader_info.return_due_date }}</p>
+            <p><strong>Start Date & Time:</strong> {% now "Y-m-d H:i:s" %}</p>
+            <p><strong>Return Due Date & Time:</strong> {% now "Y-m-d H:i:s"|date:"Y-m-d H:i:s"|add:1209600 %}</p>
+            <!-- 1209600 seconds = 2 weeks -->
         </div>
     </div>
 </div>
 
 {% endblock %}
+
+
+
 
 
 
