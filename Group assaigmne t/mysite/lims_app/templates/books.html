@@ -15,5 +15,20 @@
     </div>
 </div>
 
+<div class="search-toolbar text-center">
+    <form action="/search" method="get">
+        <input type="text" name="query" placeholder="Search for books...">
+        <button type="submit">Search</button>
+    </form>
+</div>
+
+<div class="buttons d-flex justify-content-center" style="margin-top: 15px;">
+    <button class="btn btn-primary" style="margin-right: 15px;" onclick="handleButton1()">Upload</button>
+    <button class="btn btn-secondary" onclick="handleButton2()">Add a Book</button>
+</div>
+</div>
+
+
+
 
 {% endblock %}
