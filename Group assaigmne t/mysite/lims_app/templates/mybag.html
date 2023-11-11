@@ -12,12 +12,24 @@
 </div>
 
 <div class="row">
+    <div class="col-md-4">
+        <!-- Display books list for borrowing -->
+        <div class="card" style="margin-top: 20px; padding: 20px; height: 60vh; overflow-y: auto;">
+            <h4>Books for Borrowing</h4>
+            <ul>
+                <li>Book 1</li>
+                <li>Book 2</li>
+                <li>Book 3</li>
+                <!-- Add more books as needed -->
+            </ul>
+        </div>
+    </div>
+
     <div class="col-md-8">
         <!-- Display user information when Reader ID is provided -->
-        <div class="card" style="margin-top: 20px; padding: 20px;">
+        <div class="card" style="margin-top: 20px; padding: 20px; height: 60vh; overflow-y: auto;">
             <h4>Reader Information</h4>
             <p><strong>Reader ID:</strong> {{ reader_info.reader_id }}</p>
-            <p><strong>Name:</strong> {{ reader_info.reader_name }}</p>
 
             <!-- Search form beside the name -->
             <form class="d-flex" role="search" method="GET" action="">
@@ -25,20 +37,19 @@
                 <button class="btn btn-outline-primary" type="submit">Go</button>
             </form>
 
+            <p><strong>Name:</strong> {{ reader_info.reader_name }}</p>
             <p><strong>Contact:</strong> {{ reader_info.reader_contact }}</p>
             <p><strong>Reference ID:</strong> {{ reader_info.reference_id }}</p>
             <p><strong>Start Date & Time:</strong> {{ reader_info.start_date }}</p>
             <p><strong>Return Due Date & Time:</strong> {{ reader_info.return_due_date }}</p>
         </div>
- 
-    </div>
-
-    <div class="col-md-4">
-        <!-- Empty column or additional content as needed -->
     </div>
 </div>
 
 {% endblock %}
+
+
+
 
 
 
