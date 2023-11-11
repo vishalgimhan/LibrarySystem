@@ -14,14 +14,13 @@
 <div class="row">
     <div class="col-md-8">
         <!-- Display user information when Reader ID is provided -->
-        {% if reader_info %}
         <div class="card" style="margin-top: 20px; padding: 20px;">
             <h4>Reader Information</h4>
             <p><strong>Reader ID:</strong> {{ reader_info.reader_id }}</p>
             <p><strong>Name:</strong> {{ reader_info.reader_name }}</p>
 
             <!-- Search form beside the name -->
-            <form class="d-flex" role="search" method="GET" action="{% url 'reader_detail' reader_info.reader_id %}">
+            <form class="d-flex" role="search" method="GET" action="">
                 <input class="form-control me-2" type="search" placeholder="Enter Reader ID" aria-label="Search" name="reader_id">
                 <button class="btn btn-outline-primary" type="submit">Go</button>
             </form>
@@ -31,7 +30,7 @@
             <p><strong>Start Date & Time:</strong> {{ reader_info.start_date }}</p>
             <p><strong>Return Due Date & Time:</strong> {{ reader_info.return_due_date }}</p>
         </div>
-        {% endif %}
+ 
     </div>
 
     <div class="col-md-4">
