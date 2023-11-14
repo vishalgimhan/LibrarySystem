@@ -1,0 +1,81 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block main_content %}
+
+<div class="container-flex text-center justify-content-center align-items-center" style="padding-top: 20px; padding-bottom: 20px;">
+    <div class="row justify-content-end align-items-center" style="height: 60px;">
+        <div class="col-md-4 text-light" style="background-color: #6C3483; border-radius: 5px; padding: 10px;">
+            <h4 style="margin: 0; color: #FFF;">Ready for Checkout</h4>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <!-- Display books list for borrowing -->
+        <div class="card" style="margin-top: 20px; padding: 30px; height: 60vh; overflow-y: auto;">
+            <h4>Books for Borrowing</h4>
+            <ul>
+                <li>Book 1</li>
+                <li>Book 2</li>
+                <li>Book 3</li>
+                <!-- Add more books as needed -->
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <!-- Display user information when Reader ID is provided -->
+        <div class="card" style="margin-top: 20px; margin-bottom: 20px; padding: 20px; max-height: 60vh; overflow-y: auto; background-color: #F5F5F5; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+            <h4 style="text-align: center; color: #6C3483; margin-bottom: 20px;">Reader Information</h4>
+            <form role="search" method="GET" action="" class="mb-3">
+                <div class="input-group">
+                    <label for="reader_id" class="form-label" style="width: 150px;"><strong>Enter Reader ID:</strong></label>
+                    <input type="text" class="form-control" id="reader_id" placeholder="Enter Reader ID" name="reader_id">
+                    <button class="btn btn-outline-primary" type="submit">Go</button>
+                </div>
+            </form>
+
+            <!-- Reader Information Form -->
+            <form class="row g-3">
+                <div class="col-md-6 mb-3">
+                    <label for="reader_name" class="form-label"><strong>Name:</strong></label>
+                    <input type="text" class="form-control" id="reader_name" name="reader_name" value="{{ reader_info.reader_name }}" readonly>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="reader_contact" class="form-label"><strong>Contact:</strong></label>
+                    <input type="text" class="form-control" id="reader_contact" name="reader_contact" value="{{ reader_info.reader_contact }}" readonly>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="reference_id" class="form-label"><strong>Reference ID:</strong></label>
+                    <input type="text" class="form-control" id="reference_id" name="reference_id" value="{{ reader_info.reference_id }}" readonly>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="start_date" class="form-label"><strong>Start Date:</strong></label>
+                    <input type="text" class="form-control" id="start_date" name="start_date" value="{% now "Y-m-d H:i:s" %}" readonly>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="return_due_date" class="form-label"><strong>Return Due Date:</strong></label>
+                    <input type="text" class="form-control" id="return_due_date" name="return_due_date" readonly>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
