@@ -1,9 +1,141 @@
 <!DOCTYPE html>
+
 {% extends "index.html" %}
 {% load static %}
 
 {% block main_content %}
 
-<h1>I am in returns page</h1>
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Return Page</title>
+    <style>
+      body {
+        text-align: Center;
+      }
+
+      /* Center-align the form and other elements within a container div */
+      .container {
+        display: inline-block;
+        text-align: center;
+      }
+    </style>
+   
+  </head>
+
+  <body>
+    <div>
+      
+      
+    </div>
+
+    <div>
+      <table id="library-table">
+        <thead>
+          <tr>
+            <th>User ID</th>
+            <th>User Name</th>
+            <th>Books Borrowed</th>
+            <th>Return Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>John Doe</td>
+            <td>
+              <ul>
+                <li>Introduction to JavaScript (Due Date: 2023-11-30)</li>
+                <li>HTML and CSS Basics (Due Date: 2023-12-05)</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li>Book ID 101: Returned</li>
+                <li>Book ID 102: Not Returned</li>
+              </ul>
+            </td>
+          </tr>
+
+          <tr>
+            <td>2</td>
+            <td>Jane Smith</td>
+            <td>
+              <ul>
+                <li>Python Programming (Due Date: 2023-12-10)</li>
+                <li>Data Structures in C++ (Due Date: 2023-12-15)</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li>Book ID 103: Not Returned</li>
+                <li>Book ID 104: Not Returned</li>
+              </ul>
+            </td>
+          </tr>
+
+          <tr>
+            <td>3</td>
+            <td>Sample User 1</td>
+            <td>
+              <ul>
+                <li>Sample Book 1 (Due Date: 2023-12-20)</li>
+                <li>Sample Book 2 (Due Date: 2023-12-25)</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li>Book ID 105: Returned</li>
+                <li>Book ID 106: Returned</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Sample User 2</td>
+            <td>
+              <ul>
+                <li>Sample Book 3 (Due Date: 2023-12-30)</li>
+                <li>Sample Book 4 (Due Date: 2024-01-05)</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li>Book ID 107: Not Returned</li>
+                <li>Book ID 108: Not Returned</li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <script>
+      function searchTable(category, value) {
+        const rows = document.querySelectorAll("#library-table tbody tr");
+
+        for (let i = 0; i < rows.length; i++) {
+          const cells = rows[i].getElementsByTagName("td");
+          const cellValue =
+            cells[
+              category === "userName" ? 1 : category === "bookTitle" ? 2 : 3
+            ].innerText.toLowerCase();
+
+          if (cellValue.includes(value.toLowerCase())) {
+            rows[i].style.display = "";
+          } else {
+            rows[i].style.display = "none";
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
+
+
 
 {% endblock %}
