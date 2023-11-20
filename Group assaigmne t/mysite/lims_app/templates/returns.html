@@ -9,6 +9,9 @@
 <!DOCTYPE html>
 
 <html lang="en">
+<!DOCTYPE html>
+
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -24,65 +27,108 @@
         text-align: center;
       }
     </style>
-   
   </head>
 
-  <body>
-    <div>
-      <div class="col-md-8">
-        <div class="row">
-            <nav class="navbar bg-body-light">
-                <div class="container-fluid justify-content-center align-items-center">
-                    
-                
-        
+  <body style="background-color: #f5e4d9">
+    <div style="margin-top: 20px; padding: 10px; background-color: #8b4513">
       <input
         type="text"
         id="search-username"
         placeholder="Search by User Name"
         oninput="searchTable('userName', this.value)"
+        style="
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          padding: 8px;
+          margin-right: 10px;
+          font-size: 14px;
+        "
       />
       <input
         type="text"
         id="search-book"
         placeholder="Search by Book Title"
         oninput="searchTable('bookTitle', this.value)"
+        style="
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          padding: 8px;
+          margin-right: 10px;
+          font-size: 14px;
+        "
       />
       <input
         type="text"
         id="search-status"
         placeholder="Search by Return Status"
         oninput="searchTable('returnStatus', this.value)"
+        style="
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          padding: 8px;
+          font-size: 14px;
+        "
       />
-                 </div>
-           </nav>
-
-      </div>
     </div>
-   
 
     <div>
-      <table id="library-table">
-        <thead>
+      <table
+        id="library-table"
+        style="
+          border-collapse: collapse;
+          width: 100%;
+          margin-top: 20px;
+          border: 2px solid #8b4513;
+        "
+      >
+        <thead style="background-color: #f2f2f2">
           <tr>
-            <th>User ID</th>
-            <th>User Name</th>
-            <th>Books Borrowed</th>
-            <th>Return Status</th>
+            <th
+              style="border: 1px solid #8b4513; text-align: left; padding: 8px"
+            >
+              User ID
+            </th>
+            <th
+              style="border: 1px solid #8b4513; text-align: left; padding: 8px"
+            >
+              User Name
+            </th>
+            <th
+              style="border: 1px solid #8b4513; text-align: left; padding: 8px"
+            >
+              Books Borrowed
+            </th>
+            <th
+              style="border: 1px solid #8b4513; text-align: left; padding: 8px"
+            >
+              Return Status
+            </th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>
-              <ul>
+            <td
+              style="border: 1px solid #8b4513; text-align: left; padding: 8px"
+            >
+              1
+            </td>
+            <td
+              style="border: 1px solid #8b4513; text-align: left; padding: 8px"
+            >
+              John Doe
+            </td>
+            <td
+              style="border: 1px solid #8b4513; text-align: left; padding: 8px"
+            >
+              <ul style="list-style-type: none; padding: 0; margin: 0">
                 <li>Introduction to JavaScript (Due Date: 2023-11-30)</li>
                 <li>HTML and CSS Basics (Due Date: 2023-12-05)</li>
               </ul>
             </td>
-            <td>
-              <ul>
+            <td
+              style="border: 1px solid #8b4513; text-align: left; padding: 8px"
+            >
+              <ul style="list-style-type: none; padding: 0; margin: 0">
                 <li>Book ID 101: Returned</li>
                 <li>Book ID 102: Not Returned</li>
               </ul>
@@ -90,16 +136,28 @@
           </tr>
 
           <tr>
-            <td>2</td>
-            <td>Jane Smith</td>
-            <td>
-              <ul>
+            <td
+              style="border: 1px solid #8b4513; text-align: left; padding: 8px"
+            >
+              2
+            </td>
+            <td
+              style="border: 1px solid #8b4513; text-align: left; padding: 8px"
+            >
+              Jane Smith
+            </td>
+            <td
+              style="border: 1px solid #8b4513; text-align: left; padding: 8px"
+            >
+              <ul style="list-style-type: none; padding: 0; margin: 0">
                 <li>Python Programming (Due Date: 2023-12-10)</li>
                 <li>Data Structures in C++ (Due Date: 2023-12-15)</li>
               </ul>
             </td>
-            <td>
-              <ul>
+            <td
+              style="border: 1px solid #8b4513; text-align: left; padding: 8px"
+            >
+              <ul style="list-style-type: none; padding: 0; margin: 0">
                 <li>Book ID 103: Not Returned</li>
                 <li>Book ID 104: Not Returned</li>
               </ul>
@@ -107,32 +165,56 @@
           </tr>
 
           <tr>
-            <td>3</td>
-            <td>Sample User 1</td>
-            <td>
-              <ul>
-                <li>Sample Book 1 (Due Date: 2023-12-20)</li>
-                <li>Sample Book 2 (Due Date: 2023-12-25)</li>
+            <td
+              style="border: 1px solid #8b4513; text-align: left; padding: 8px"
+            >
+              3
+            </td>
+            <td
+              style="border: 1px solid #8b4513; text-align: left; padding: 8px"
+            >
+              Sample User 1
+            </td>
+            <td
+              style="border: 1px solid #8b4513; text-align: left; padding: 8px"
+            >
+              <ul style="list-style-type: none; padding: 0; margin: 0">
+                <li>Sample Book 1 (Due Date: 2023-12-30)</li>
+                <li>Sample Book 2 (Due Date: 2024-01-05)</li>
               </ul>
             </td>
-            <td>
-              <ul>
-                <li>Book ID 105: Returned</li>
-                <li>Book ID 106: Returned</li>
+            <td
+              style="border: 1px solid #8b4513; text-align: left; padding: 8px"
+            >
+              <ul style="list-style-type: none; padding: 0; margin: 0">
+                <li>Book ID 105: Not Returned</li>
+                <li>Book ID 106: Not Returned</li>
               </ul>
             </td>
           </tr>
           <tr>
-            <td>4</td>
-            <td>Sample User 2</td>
-            <td>
-              <ul>
+            <td
+              style="border: 1px solid #8b4513; text-align: left; padding: 8px"
+            >
+              4
+            </td>
+            <td
+              style="border: 1px solid #8b4513; text-align: left; padding: 8px"
+            >
+              Sample User 2
+            </td>
+            <td
+              style="border: 1px solid #8b4513; text-align: left; padding: 8px"
+            >
+              <ul style="list-style-type: none; padding: 0; margin: 0">
                 <li>Sample Book 3 (Due Date: 2023-12-30)</li>
                 <li>Sample Book 4 (Due Date: 2024-01-05)</li>
               </ul>
             </td>
-            <td>
-              <ul>
+            <td
+              style="border: 1px solid #8b4513; text-align: left; padding: 8px"
+            >
+              <ul style="list-style-type: none; padding: 0; margin: 0">
                 <li>Book ID 107: Not Returned</li>
                 <li>Book ID 108: Not Returned</li>
               </ul>
@@ -163,7 +245,5 @@
     </script>
   </body>
 </html>
-
-
 
 {% endblock %}
