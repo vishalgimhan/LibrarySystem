@@ -29,6 +29,13 @@
 
   <body>
     <div>
+      <div class="col-md-8">
+        <div class="row">
+            <nav class="navbar bg-body-light">
+                <div class="container-fluid justify-content-center align-items-center">
+                    
+                
+        
       <input
         type="text"
         id="search-username"
@@ -42,13 +49,17 @@
         oninput="searchTable('bookTitle', this.value)"
       />
       <input
-      type="text"
-      id="search-status"
-      placeholder="Search by Return Status"
-      oninput="searchTable('returnStatus', this.value)"
-    />
-      
+        type="text"
+        id="search-status"
+        placeholder="Search by Return Status"
+        oninput="searchTable('returnStatus', this.value)"
+      />
+                 </div>
+           </nav>
+
+      </div>
     </div>
+   
 
     <div>
       <table id="library-table">

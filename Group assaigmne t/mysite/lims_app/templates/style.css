@@ -1,0 +1,50 @@
+/* styles.css */
+
+body {
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  .container {
+    display: inline-block;
+    text-align: center;
+  }
+  
+  #library-table {
+    border-collapse: collapse;
+    width: 80%;
+    margin: 20px auto;
+  }
+  
+  #library-table th,
+  #library-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  #library-table th {
+    background-color: #f2f2f2;
+  }
+  
+  #library-table tbody ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  #library-table tbody ul li {
+    margin-bottom: 5px;
+  }
+  
+  #library-table tbody tr:hover {
+    background-color: #f5f5f5;
+  }
+  
+  /* Style for search input */
+  #search-username,
+  #search-book,
+  #search-status {
+    margin-bottom: 10px;
+    padding: 8px;
+  }
+  
