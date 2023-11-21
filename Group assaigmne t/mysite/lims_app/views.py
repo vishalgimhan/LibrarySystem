@@ -4,6 +4,8 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
 from .models import *
@@ -37,10 +39,20 @@ def books_tab(request):
     return render(request, "books.html", context={"current_tab": "books"})
 
 def mybag_tab(request):
-    return render(request, "mybag.html", context={"current_tab": "mybag"})
+    mybags = mybag.objects.all()
+    return render(request, "mybag.html", context={'current_tab':"mybag", 
+                                                    "mybags":mybags})
 
+def reader_search(request):
+    query = request.GET.get('query')
+    
+    reader_results = reader.objects.filter(reference_id__exact=query)
+
+    return render(
+        request,
+        'mybag.html',
+        context={'reader_results': reader_results, 'query': query}
+    )
+    
 def returns_tab(request):
     return render(request, "returns.html", context={"current_tab": "returns"})
-
-
-
