@@ -1,9 +1,98 @@
-<!DOCTYPE html>
 {% extends "index.html" %}
 {% load static %}
 
 {% block main_content %}
 
-<h1>I am in mybag page</h1>
+<div class="container py-4">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-md-6 text-center text-light" style="background-color: #6C3483; border-radius: 5px; padding: 20px;">
+            <h2 class="m-0">Ready for Checkout</h2>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card my-4 p-4" style="
+                background-color: #F5F5F5;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            ">
+                <h4 class="text-center text-primary mb-4">Books for Borrowing</h4>
+                <ul class="list-unstyled">
+                    <li><img src="{% static 'images/book1.jpg' %}" alt="Book 1" class="img-fluid mb-2"></li>
+                    <li><img src="{% static 'images/book2.jpg' %}" alt="Book 2" class="img-fluid mb-2"></li>
+                    <li><img src="{% static 'images/book3.jpg' %}" alt="Book 3" class="img-fluid mb-2"></li>
+                    <!-- Add more books as needed -->
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="card my-4 p-4" style="
+                background-color: #F5F5F5;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            ">
+                <h4 class="text-center text-primary mb-4">Reader Information</h4>
+
+                <form role="search" method="GET" action="" class="mb-4">
+                    <div class="input-group">
+                        <label for="reader_id" class="input-group-text" style="min-width: 150px;">Enter Reader ID:</label>
+                        <input type="text" id="reader_id" class="form-control">
+                        <button class="btn btn-outline-primary" type="submit">Go</button>
+                    </div>
+                </form>
+
+                <form class="row g-3">
+                    <div class="col-md-6">
+                        <label for="reader_name" class="form-label"><strong>Name:</strong></label>
+                        <input type="text" id="reader_name" class="form-control" readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="reader_contact" class="form-label"><strong>Contact:</strong></label>
+                        <input type="text" id="reader_contact" class="form-control" readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="reference_id" class="form-label"><strong>Reference ID:</strong></label>
+                        <input type="text" id="reference_id" class="form-control" readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="start_date" class="form-label"><strong>Start Date:</strong></label>
+                        <input type="text" id="start_date" name="start_date" class="form-control" value="{% now "Y-m-d H:i:s" %}" readonly>
+                    </div> <div>
+
+                </div>
+                    <div class="col-md-6">
+                        <label for="return_due_date" class="form-label"><strong>Return Due Date:</strong></label>
+                        <input type="text" id="return_due_date" name="return_due_date" class="form-control" readonly>
+                    </div>
+                </form>
+
+                <div class="text-center">
+                    <button class="btn btn-primary mt-3" type="button">Checkout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

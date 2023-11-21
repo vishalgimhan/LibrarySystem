@@ -27,3 +27,4 @@ urlpatterns = [
     path('mybag', mybag_tab),
     path('returns', returns_tab),
 ]
+
