@@ -41,7 +41,7 @@ from django.shortcuts import render
 def search_books(request):
     query = request.GET.get('query')
     
-    # Use exact lookup to match the title exactly
+   
     book_results = books.objects.filter(book_name__exact=query)
 
     return render(
