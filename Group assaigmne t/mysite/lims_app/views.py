@@ -33,6 +33,23 @@ def save_reader(request):
 
 def books_tab(request):
     return render(request, "books.html", context={"current_tab": "books"})
+  
+
+from .models import books
+from django.shortcuts import render
+
+def search_books(request):
+    query = request.GET.get('query')
+    
+    # Use exact lookup to match the title exactly
+    book_results = books.objects.filter(book_name__exact=query)
+
+    return render(
+        request,
+        'books.html',
+        {'book_results': book_results, 'query': query}
+    )
+
 
 def mybag_tab(request):
     return render(request, "mybag.html", context={"current_tab": "mybag"})

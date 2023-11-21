@@ -12,7 +12,6 @@ class reader(models.Model):
     active=models.BooleanField(default=True)
 
 
-
 from django.db import models
 
 class books(models.Model):
