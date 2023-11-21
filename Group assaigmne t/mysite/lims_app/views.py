@@ -42,8 +42,5 @@ def mybag_tab(request):
 def returns_tab(request):
     return render(request, "returns.html", context={"current_tab": "returns"})
 
-<<<<<<< HEAD
-=======
 
 
->>>>>>> TeepikaBranch
