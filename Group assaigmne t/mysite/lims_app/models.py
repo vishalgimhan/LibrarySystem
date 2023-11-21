@@ -12,4 +12,14 @@ class reader(models.Model):
     active=models.BooleanField(default=True)
 
 
-
+class mybag(models.Model):
+      def __str__(self):
+         return self.reader_name + "'s bag"
+   
+      reference_id=models.CharField(max_length=200)
+      reader_name = models.CharField(max_length=200)
+      reader_contact = models.CharField(max_length=200)
+      book_startdate = models.DateField()
+      book_returndate = models.DateField()
+      book_name = models.CharField(max_length=200)
+      
