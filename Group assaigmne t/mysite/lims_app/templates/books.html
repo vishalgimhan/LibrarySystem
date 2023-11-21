@@ -14,7 +14,7 @@
         </div>        
        
     </div>
-</div
+</div>
 
 
 <div class="search-toolbar text-center">
@@ -35,9 +35,82 @@
     
     </button>
 </div>
-</div>
+
+    <div>
+        <table
+          id="library-table"
+          style="
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+            border: 2px solid #4B088A;
+          "
+        >
+          <thead style="background-color: #f2f2f2">
+            <tr>
+              <th style="border: 1px solid #4B088A; text-align: left; padding: 8px"> Book Name</th>
+              <th style="border: 1px solid #4B088A; text-align: left; padding: 8px"> ISBN </th>
+              <th style="border: 1px solid #4B088A; text-align: left; padding: 8px"> Author </th>
+              <th style="border: 1px solid #4B088A; text-align: left; padding: 8px"> Category </th>
+              <th style="border: 1px solid #4B088A; text-align: left; padding: 8px">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+           
+            <tr>
+               <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">The Secret Garden</td>
+               <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">ISBN-001</td>
+               <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">Frances Hodgson Burnett</td>
+               <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">Children's Fiction</td>
+               <td style="border: 1px solid #4B088A; text-align: left; padding: 8px"><button onclick="addToBag('ISBN-001')">Add to Bag</button></td>
 
 
+            </tr>
+            <tr>
+                <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">1984</td>
+                <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">ISBN-002</td>
+                <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">George Orwell</td>
+                <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">Dystopian Fiction</td>
+                <td style="border: 1px solid #4B088A; text-align: left; padding: 8px"><button onclick="addToBag('ISBN-002')">Add to Bag</button></td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">The Great Gatsby</td>
+                <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">ISBN-003</td>
+                <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">F. Scott Fitzgerald</td>
+                <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">Classic Literature</td>
+                <td style="border: 1px solid #4B088A; text-align: left; padding: 8px"><button onclick="addToBag('ISBN-003')">Add to Bag</button></td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">To Kill a Mockingbird</td>
+                <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">ISBN-004</td>
+                <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">Harper Lee</td>
+                <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">Southern Gothic</td>
+                <td style="border: 1px solid #4B088A; text-align: left; padding: 8px"><button onclick="addToBag('ISBN-004')">Add to Bag</button></td>
+              </tr>
+              <tr>
+                <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">The Hobbit</td>
+                <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">ISBN-005</td>
+                <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">J.R.R. Tolkien</td>
+                <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">Fantasy</td>
+                <td style="border: 1px solid #4B088A; text-align: left; padding: 8px"><button onclick="addToBag('ISBN-005')">Add to Bag</button></td>
+              </tr>
+        </tbody>
+ </table>
+ </div>
+ <script>
+    function addToBag(isbn) {
+      // You can implement the logic to add the book with the given ISBN to the shopping bag here
+      alert('Added to Bag: ' + isbn);
+    }
+  </script>
+ 
+              
+
+ 
+ 
+  
+
+ 
 
 
 {% endblock %}
