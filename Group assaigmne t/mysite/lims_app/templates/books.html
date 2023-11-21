@@ -34,14 +34,13 @@
     </button>
 </div>
 </div>
-<br><br>
+<br><br>  
 <div>
     {% if book_results %}
     <div class="search-results">
         <h5>Search Results for "{{ query }}"</h5>
         {% for book in book_results %}
-        <p>{{ book.book_name }} by {{ book.author }}, {{book.ISBN}}, {{book.category}}</p>
-        
+        <p>{{ book.book_name }} by {{ book.author }}, {{book.ISBN}}, {{book.category}}</p>        
         {% endfor %}
     </div>
     {% else %}
