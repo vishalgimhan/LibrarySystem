@@ -26,5 +26,6 @@ urlpatterns = [
     path('books', books_tab),
     path('mybag', mybag_tab),
     path('returns', returns_tab),
+    path('search/', search_books, name='search_books'),
 ]
 

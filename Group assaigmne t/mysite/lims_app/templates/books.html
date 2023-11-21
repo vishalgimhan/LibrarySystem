@@ -14,7 +14,7 @@
         </div>        
        
     </div>
-</div
+</div>
 
 
 <div class="search-toolbar text-center">
@@ -27,8 +27,6 @@
 </div>
 
 
-
-
 <div class="buttons d-flex justify-content-center" style="margin-top: 15px;">
     <button class="btn btn-primary" style="margin-right: 15px;" onclick="handleButton1()">Upload</button>
     <button class="btn btn-secondary" onclick="handleButton2()">Add a Book
@@ -36,8 +34,19 @@
     </button>
 </div>
 </div>
-
-
-
+<br><br>
+<div>
+    {% if book_results %}
+    <div class="search-results">
+        <h5>Search Results for "{{ query }}"</h5>
+        {% for book in books %}
+            <p>{{ book.book_name }} by {{ book.author }}</p>
+        
+        {% endfor %}
+    </div>
+    {% else %}
+    <h5>No results found for "{{ query }}"</h5>
+    {% endif %}
+    </div>
 
 {% endblock %}
