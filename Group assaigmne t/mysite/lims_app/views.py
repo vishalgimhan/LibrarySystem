@@ -47,7 +47,7 @@ def search_books(request):
     return render(
         request,
         'books.html',
-        {'book_results': book_results, 'query': query}
+        context={'book_results': book_results, 'query': query}
     )
 
 
