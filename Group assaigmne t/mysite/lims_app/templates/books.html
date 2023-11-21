@@ -5,6 +5,7 @@
 {% block main_content %}
 
 
+<body>
 
 <div class="container-flex text-center justify-content-center align-items-center" style="padding-top: 10px; padding-bottom: 20px; margin-left: 10px; vertical-align: middle;">
     <div class="row justify-content-center align-items-center" style="margin-top: 10px; height: 50px;">
@@ -15,6 +16,7 @@
        
     </div>
 </div>
+
 
 
 <div class="search-toolbar text-center">
@@ -29,12 +31,45 @@
 
 
 
+
 <div class="buttons d-flex justify-content-center" style="margin-top: 15px;">
-    <button class="btn btn-primary" style="margin-right: 15px;" onclick="handleButton1()">Upload</button>
-    <button class="btn btn-secondary" onclick="handleButton2()">Add a Book
-    
-    </button>
+    <button class="btn btn-primary" style="margin-right: 15px;" onclick="handleUpload()">Upload</button>
+    <button class="btn btn-secondary" onclick="handleButton2()">Add a Book</button>
 </div>
+
+<!-- Add this form for file upload -->
+<form id="uploadForm" style="display: none;">
+    <input type="file" id="fileInput" name="file" accept=".csv, .xlsx, .xls">
+    <button type="button" onclick="submitUpload()">Submit</button>
+</form>
+
+<script>
+    function handleUpload() {
+        
+        document.getElementById('uploadForm').style.display = 'block';
+    }
+
+    function submitUpload() {
+        // Get the selected file
+        const fileInput = document.getElementById('fileInput');
+        const file = fileInput.files[0];
+
+        if (file) {
+            // Create a FormData object to send the file
+            const formData = new FormData();
+            formData.append('file', file);
+
+            
+            alert('File uploaded successfully!');
+
+            
+            document.getElementById('uploadForm').style.display = 'none';
+        } else {
+            alert('Please select a file.');
+        }
+    }
+</script>
+
 
     <div>
         <table
@@ -103,14 +138,17 @@
       alert('Added to Bag: ' + isbn);
     }
   </script>
- 
-              
 
+</body>
  
  
   
 
  
+
+
+
+
 
 
 {% endblock %}
