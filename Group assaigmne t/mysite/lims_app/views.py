@@ -3,6 +3,8 @@ from django.contrib import admin
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
+
+
 # Create your views here.
 from .models import *
 
@@ -40,3 +42,8 @@ def mybag_tab(request):
 def returns_tab(request):
     return render(request, "returns.html", context={"current_tab": "returns"})
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> TeepikaBranch
