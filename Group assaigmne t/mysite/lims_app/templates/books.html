@@ -34,18 +34,82 @@
     </button>
 </div>
 </div>
-<br><br>  
+<br><br>
 <div>
     {% if book_results %}
     <div class="search-results">
         <h5>Search Results for "{{ query }}"</h5>
         {% for book in book_results %}
-        <p>{{ book.book_name }} by {{ book.author }}, {{book.ISBN}}, {{book.category}}</p>        
+       
+        
         {% endfor %}
     </div>
     {% else %}
     <h5>No results found for "{{ query }}"</h5>
     {% endif %}
     </div>
+
+    <div>
+        <table
+          id="library-table"
+          style="
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+            border: 2px solid #4B088A;
+          "
+        >
+          <thead style="background-color: #f2f2f2">
+            <tr>
+              <th style="border: 1px solid #4B088A; text-align: left; padding: 8px"> Book Name</th>
+              <th style="border: 1px solid #4B088A; text-align: left; padding: 8px"> ISBN </th>
+              <th style="border: 1px solid #4B088A; text-align: left; padding: 8px"> Author </th>
+              <th style="border: 1px solid #4B088A; text-align: left; padding: 8px"> Category </th>
+              <th style="border: 1px solid #4B088A; text-align: left; padding: 8px">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for book in books %}
+            <tr>
+              <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">{{ book.book_name }}</td>
+              <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">{{ book.ISBN }}</td>
+              <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">{{ book.author }}</td>
+              <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">{{ book.category }}</td>
+              <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">
+                  <button onclick="addToBag('{{ book.ISBN }}')">Add to Bag</button>
+              </td>
+            </tr>
+            {% endfor %}
+            {% for book in book_results %}
+            <tr>
+                <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">{{ book.book_name }}</td>
+                <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">{{ book.ISBN }}</td>
+                <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">{{ book.author }}</td>
+                <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">{{ book.category }}</td>
+                <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">
+                    <button onclick="addToBag('{{ book.ISBN }}')">Add to Bag</button>
+                </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+
+
+ </table>
+ </div>
+ <script>
+    function addToBag(isbn) {
+      // You can implement the logic to add the book with the given ISBN to the shopping bag here
+      alert('Added to Bag: ' + isbn);
+    }
+  </script>
+ 
+              
+
+ 
+ 
+  
+
+ 
+
 
 {% endblock %}

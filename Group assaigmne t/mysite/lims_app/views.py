@@ -32,7 +32,8 @@ def save_reader(request):
     return redirect('/readers')
 
 def books_tab(request):
-    return render(request, "books.html", context={"current_tab": "books"})
+    book_table = books.objects.all()
+    return render(request, "books.html", context={"current_tab": "books","books":book_table})
   
 
 from .models import books
@@ -42,7 +43,7 @@ def search_books(request):
     query = request.GET.get('query')
     
     # Use exact lookup to match the title exactly
-    book_results = books.objects.filter(book_name__exact=query)
+    book_results = books.objects.filter(book_name=query)
 
     return render(
         request,
