@@ -30,7 +30,7 @@ def save_reader(request):
     reader_item.save()
     return redirect('/readers')
 
-def search_readers(request):
+def search_reader(request):
     query = request.GET.get('query')
     
     # Use exact lookup to match the title exactly
