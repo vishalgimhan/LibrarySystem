@@ -18,8 +18,7 @@ def save_student(request):
 
 def readers_tab(request):
     readers = reader.objects.all()
-    return render(request, "readers.html", context={'current_tab':"readers", 
-                                                    "readers":readers})
+    return render(request, "readers.html", context={'current_tab':"readers", "readers":readers})
 
 def save_reader(request):
     reader_item = reader(reference_id = request.POST['reader_ref_id'],
@@ -30,6 +29,18 @@ def save_reader(request):
                         )
     reader_item.save()
     return redirect('/readers')
+
+def search_readers(request):
+    query = request.GET.get('query')
+    
+    # Use exact lookup to match the title exactly
+    reader_results = reader.objects.filter(reader_name__icontains=query)
+
+    return render(
+        request,
+        'readers.html',
+        context={'reader_results': reader_results, 'query': query}
+    )
 
 def books_tab(request):
     book_table = books.objects.all()
