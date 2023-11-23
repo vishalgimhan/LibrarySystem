@@ -58,7 +58,7 @@
             <nav class="navbar bg-body-light">
                 <div class="container-fluid justify-content-center align-items-center">
                     <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <input class="form-control me-2" type="search" placeholder="Search Reader Name" action="/search_reader" method="get" name="query">
                         <button class="btn btn-outline-primary" type="submit">Search</button>
                     </form>
                 </div>
@@ -96,6 +96,22 @@
                                 <td>{{reader.reference_id}}</td>
                                 <td>{{reader.reader_address}}</td>
                             </tr>
+                        {% endfor %}
+
+                        {% for reader in reader_results %}
+                        <tr>
+                            <td>{{reader.id}}</td>
+                            <td>
+                                {% if reader.active %}
+                                    <span class="btn btn-success">{{reader.reader_name}}</span>
+                                {% else %}
+                                    <span class="btn btn-secondary">{{reader.reader_name}}</span>
+                                {% endif %}
+                            </td>
+                            <td>{{reader.reader_contact}}</td>
+                            <td>{{reader.reference_id}}</td>
+                            <td>{{reader.reader_address}}</td>
+                        </tr>
                         {% endfor %}
                     </tbody>
                 </table>
