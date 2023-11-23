@@ -139,30 +139,30 @@
                   </td>
               </tr>
               {% endfor %}
-          </tbody>
-      </table>
-  </div>
   
- </div>
- <script>
-    function addToBag(isbn) {
-      // You can implement the logic to add the book with the given ISBN to the shopping bag here
-      alert('Added to Bag: ' + isbn);
-    }
-  </script>
- 
- <script>
-    function addToBag(isbn) {
-        // Get the quantity input for the corresponding book
-        const quantityInput = document.getElementById(`quantity${isbn}`);
-        const quantity = parseInt(quantityInput.value);
+            </div>
+            
+            </div>
+            <script>
+                function addToBag(isbn) {
+                // You can implement the logic to add the book with the given ISBN to the shopping bag here
+                alert('Added to Bag: ' + isbn);
+                }
+            </script>
+            
+            <script>
+                function addToBag(isbn) {
+                    // Get the quantity input for the corresponding book
+                    const quantityInput = document.getElementById(`quantity${isbn}`);
+                    const quantity = parseInt(quantityInput.value);
 
-       
-        }
-    
-</script>
+                
+                    }
+                
+            </script>
 
-</body>
+        </tbody>
+</table>
 
 
  

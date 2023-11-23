@@ -34,10 +34,10 @@ def save_reader(request):
     reader_item.save()
     return redirect('/readers')
 
-def search_readers(request):
+def search_reader(request):
     query = request.GET.get('query')
     
-    # Use exact lookup to match the title exactly
+    
     reader_results = reader.objects.filter(reader_name__icontains=query)
 
     return render(
@@ -57,7 +57,7 @@ from django.shortcuts import render
 def search_books(request):
     query = request.GET.get('query')
     
-    # Use exact lookup to match the title exactly
+    
     book_results = books.objects.filter(book_name__icontains=query)
 
     return render(
@@ -82,6 +82,7 @@ def reader_search(request):
         'mybag.html',
         context={'reader_results': reader_results, 'query': query}
     )
-    
+
 def returns_tab(request):
     return render(request, "returns.html", context={"current_tab": "returns"})
+
