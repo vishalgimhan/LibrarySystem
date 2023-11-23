@@ -3,10 +3,6 @@ from django.contrib import admin
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
-
-from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
-
 # Create your views here.
 from .models import *
 
@@ -37,7 +33,7 @@ def save_reader(request):
 def search_reader(request):
     query = request.GET.get('query')
     
-    
+    # Use exact lookup to match the title exactly
     reader_results = reader.objects.filter(reader_name__icontains=query)
 
     return render(
@@ -57,7 +53,7 @@ from django.shortcuts import render
 def search_books(request):
     query = request.GET.get('query')
     
-    
+    # Use exact lookup to match the title exactly
     book_results = books.objects.filter(book_name__icontains=query)
 
     return render(
@@ -68,21 +64,7 @@ def search_books(request):
 
 
 def mybag_tab(request):
-    mybags = mybag.objects.all()
-    return render(request, "mybag.html", context={'current_tab':"mybag", 
-                                                    "mybags":mybags})
-
-def reader_search(request):
-    query = request.GET.get('query')
-    
-    reader_results = reader.objects.filter(reference_id__exact=query)
-
-    return render(
-        request,
-        'mybag.html',
-        context={'reader_results': reader_results, 'query': query}
-    )
+    return render(request, "mybag.html", context={"current_tab": "mybag"})
 
 def returns_tab(request):
     return render(request, "returns.html", context={"current_tab": "returns"})
-
