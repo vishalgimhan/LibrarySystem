@@ -57,26 +57,17 @@
         <div class="row">
             <nav class="navbar bg-body-light">
                 <div class="container-fluid justify-content-center align-items-center">
-                    <form class="d-flex" role="search" action="/search_reader" method="get">
-                        <input class="form-control me-2" type="text" placeholder="Search Reader Name" name="query">
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search Reader Name" action="/search_reader" method="get" name="query">
                         <button class="btn btn-outline-primary" type="submit">Search</button>
                     </form>
                 </div>
             </nav>
         </div>
 
-        <div>
-            {% if reader_results %}
-            <div class="search-results">
-                <h5>Search Results for "{{ query }}"</h5>
-                <p>{{reader_results|length}} readers subscribed.</p>
-
-            </div>
-            {% else  %}
-              <h5>No results found for "{{ query }}"</h5>
-              <p>{{readers|length}} readers subscribed.</p>
-            {% endif %}
-            </div>
+        <div class="row" style="margin-top: 20px;">
+            <p>{{readers|length}} readers subscribed.</p>
+        </div>
 
         <div class="row" style="margin-top: 20px;">
             <div class="container" style="overflow-y: auto; height: 400px;">
@@ -93,7 +84,7 @@
                     <tbody>
                         {% for reader in readers %}
                             <tr>
-                                <td>{{reader.reference_id}}</td>
+                                <td>{{reader.id}}</td>
                                 <td>
                                     {% if reader.active %}
                                         <span class="btn btn-success">{{reader.reader_name}}</span>
