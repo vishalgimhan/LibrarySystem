@@ -5,7 +5,6 @@
 {% block main_content %}
 
 
-<body>
 
 <div class="container-flex text-center justify-content-center align-items-center" style="padding-top: 10px; padding-bottom: 20px; margin-left: 10px; vertical-align: middle;">
     <div class="row justify-content-center align-items-center" style="margin-top: 10px; height: 50px;">
@@ -18,11 +17,10 @@
 </div>
 
 
-
 <div class="search-toolbar text-center">
-    <form class="form-inline d-flex justify-content-center" action="/search" method="get">
+    <form class="form-inline d-flex justify-content-center" action="/search_book" method="get">
         <div class="form-group mx-sm-3 mb-2">
-            <input type="text" class="form-control" name="query" placeholder="Search for books...">
+            <input type="text" class="form-control" name="query" placeholder="Search for book name...">
         </div>
         <button type="submit" class="btn btn-primary mb-2">Search</button>
     </form>
@@ -30,12 +28,28 @@
 
 
 
-
-
 <div class="buttons d-flex justify-content-center" style="margin-top: 15px;">
-    <button class="btn btn-primary" style="margin-right: 15px;" onclick="handleUpload()">Upload</button>
-    <button class="btn btn-secondary" onclick="handleButton2()">Add a Book</button>
+    <button class="btn btn-primary" style="margin-right: 15px;" onclick="handleButton1()">Upload</button>
+    <button class="btn btn-secondary" onclick="handleButton2()">Add a Book
+    
+    </button>
 </div>
+</div>
+<br><br>
+<div>
+  {% if book_results %}
+  <div class="search-results">
+      <h5>Search Results for "{{ query }}"</h5>
+      <p>{{book_results|length}} books available.</p>
+      {% for book in book_results %}
+    
+      {% endfor %}
+  </div>
+  {% else  %}
+    <h5>No results found for {{ query }}</h5>
+    <p>{{books|length}} books available.</p>
+  {% endif %}
+  </div>
 
 <!-- Add this form for file upload -->
 <form id="uploadForm" style="display: none;">
@@ -83,108 +97,79 @@
                 <td>Category</td>
                 
             </tr>
-          </thead>
-
-          <tbody>
-           
-            <tr>
-                <td>The Secret Garden</td>
-                <td>ISBN-001</td>
-                <td>Frances Hodgson Burnett</td>
-                <td>Children's Fiction</td>
-                <td >
-                    <div class="input-group">
-                        <div class="input-group-append">
-                            <button class="btn btn-success" onclick="addToBag('ISBN-001')">Add to Bag</button>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            
-            <tr>
-                <td>The Magic</td>
-                <td>ISBN-002</td>
-                <td>George Orwell</td>
-                <td>Dystopian Fiction</td>
-                <td>
-                    <div class="input-group">
-                        <div class="input-group-append">
-                            <button class="btn btn-success" onclick="addToBag('ISBN-002')">Add to Bag</button>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>The Great Gatsby</td>
-                <td>ISBN-003</td>
-                <td>F.Scott Fitzgerald</td>
-                <td>Classic Literature</td>
-                <td>
-                    <div class="input-group">
-                        <div class="input-group-append">
-                            <button class="btn btn-success" onclick="addToBag('ISBN-001')">Add to Bag</button>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>To Kill a Mockingbird</td>
-                <td>ISBN-004</td>
-                <td>Harper Lee</td>
-                <td >Southern Gothic</td>
-                <td>
-                    <div class="input-group">
-                        <div class="input-group-append">
-                            <button class="btn btn-success" onclick="addToBag('ISBN-001')">Add to Bag</button>
-                        </div>
-                    </div>
-                </td>
-              </tr>
+    <div>
+      <table
+        id="library-table"
+        style="
+          border-collapse: collapse;
+          width: 100%;
+          margin-top: 20px;
+          border: 2px solid #4B088A;
+        "
+      >
+          <thead style="background-color: #f2f2f2">
               <tr>
-                <td>The Hobbit</td>
-                <td>ISBN-005</td>
-                <td>J.R.R. Tolkien</td>
-                <td>Fantasy</td>
-                <td>
-                    <div class="input-group">
-                        <div class="input-group-append">
-                            <button class="btn btn-success" onclick="addToBag('ISBN-001')">Add to Bag</button>
-                        </div>
-                    </div>
-                </td>
+                  <th style="border: 1px solid #4B088A; text-align: left; padding: 8px">Book Name</th>
+                  <th style="border: 1px solid #4B088A; text-align: left; padding: 8px">ISBN</th>
+                  <th style="border: 1px solid #4B088A; text-align: left; padding: 8px">Author</th>
+                  <th style="border: 1px solid #4B088A; text-align: left; padding: 8px">Category</th>
+                  <th style="border: 1px solid #4B088A; text-align: left; padding: 8px">Actions</th>
               </tr>
+          </thead>
+          <tbody>
+              {% for book in books %}
+              <tr>
+                  <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">{{ book.book_name }}</td>
+                  <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">{{ book.ISBN }}</td>
+                  <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">{{ book.author }}</td>
+                  <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">{{ book.category }}</td>
+                  <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">
+                      <button onclick="addToBag('{{ book.ISBN }}')">Add to Bag</button>
+                  </td>
+              </tr>
+              {% endfor %}
+              {% for book in book_results %}
+              <tr>
+                  <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">{{ book.book_name }}</td>
+                  <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">{{ book.ISBN }}</td>
+                  <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">{{ book.author }}</td>
+                  <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">{{ book.category }}</td>
+                  <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">
+                      <button onclick="addToBag('{{ book.ISBN }}')">Add to Bag</button>
+                  </td>
+              </tr>
+              {% endfor %}
+  
+            </div>
+            
+            </div>
+            <script>
+                function addToBag(isbn) {
+                // You can implement the logic to add the book with the given ISBN to the shopping bag here
+                alert('Added to Bag: ' + isbn);
+                }
+            </script>
+            
+            <script>
+                function addToBag(isbn) {
+                    // Get the quantity input for the corresponding book
+                    const quantityInput = document.getElementById(`quantity${isbn}`);
+                    const quantity = parseInt(quantityInput.value);
+
+                
+                    }
+                
+            </script>
+
         </tbody>
-    </table>
- 
- </div>
- <script>
-    function addToBag(isbn) {
-      // You can implement the logic to add the book with the given ISBN to the shopping bag here
-      alert('Added to Bag: ' + isbn);
-    }
-  </script>
+</table>
 
-<script>
-    function addToBag(isbn) {
-        // Get the quantity input for the corresponding book
-        const quantityInput = document.getElementById(`quantity${isbn}`);
-        const quantity = parseInt(quantityInput.value);
 
-       
-        }
-    
-</script>
-
-</body>
  
  
   
 
  
-
-
-
-
 
 
 {% endblock %}
