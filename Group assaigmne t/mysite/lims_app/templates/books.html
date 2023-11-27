@@ -29,12 +29,44 @@
 
 
 <div class="buttons d-flex justify-content-center" style="margin-top: 15px;">
-    <button class="btn btn-primary" style="margin-right: 15px;" onclick="handleButton1()">Upload</button>
-    <button class="btn btn-secondary" onclick="handleButton2()">Add a Book
-    
-    </button>
+    <button class="btn btn-primary" style="margin-right: 15px;" onclick="handleUpload()">Upload</button>
+    <button class="btn btn-secondary" onclick="handleButton2()">Add a Book</button>
 </div>
-</div>
+
+<form id="uploadForm" style="display: none;">
+    <input type="file" id="fileInput" name="file" accept=".csv, .xlsx, .xls">
+    <button type="button" onclick="submitUpload()">Submit</button>
+</form>
+
+<script>
+    function handleUpload() {
+        
+        document.getElementById('uploadForm').style.display = 'block';
+    }
+
+    function submitUpload() {
+        // Get the selected file
+        const fileInput = document.getElementById('fileInput');
+        const file = fileInput.files[0];
+
+        if (file) {
+            // Create a FormData object to send the file
+            const formData = new FormData();
+            formData.append('file', file);
+
+            
+            alert('File uploaded successfully!');
+
+            
+            document.getElementById('uploadForm').style.display = 'none';
+        } else {
+            alert('Please select a file.');
+        }
+    }
+</script>
+
+
+
 <br><br>
 <div>
   {% if book_results %}
@@ -90,52 +122,35 @@
         <table class="table table-hover">
         
           <thead style="background-color: #f2f2f2;font-weight: bold;">
-            <tr>
-                <td>Book Name</td>
-                <td>ISBN</td>
-                <td>Author</td>
-                <td>Category</td>
-                
-            </tr>
-    <div>
-      <table
-        id="library-table"
-        style="
-          border-collapse: collapse;
-          width: 100%;
-          margin-top: 20px;
-          border: 2px solid #4B088A;
-        "
-      >
-          <thead style="background-color: #f2f2f2">
               <tr>
-                  <th style="border: 1px solid #4B088A; text-align: left; padding: 8px">Book Name</th>
-                  <th style="border: 1px solid #4B088A; text-align: left; padding: 8px">ISBN</th>
-                  <th style="border: 1px solid #4B088A; text-align: left; padding: 8px">Author</th>
-                  <th style="border: 1px solid #4B088A; text-align: left; padding: 8px">Category</th>
-                  <th style="border: 1px solid #4B088A; text-align: left; padding: 8px">Actions</th>
+                  <th >Book Name</th>
+
+                  <th>ISBN</th>
+                  <th >Author</th>
+                  <th >Category</th>
+                  <th >Actions</th>
               </tr>
           </thead>
           <tbody>
               {% for book in books %}
               <tr>
-                  <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">{{ book.book_name }}</td>
-                  <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">{{ book.ISBN }}</td>
-                  <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">{{ book.author }}</td>
-                  <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">{{ book.category }}</td>
-                  <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">
-                      <button onclick="addToBag('{{ book.ISBN }}')">Add to Bag</button>
+                  <td>{{ book.book_name }}</td>
+                  <td>{{ book.ISBN }}</td>
+                  <td>{{ book.author }}</td>
+                  <td>{{ book.category }}</td>
+                  <td>
+                      <button class="btn btn-success" onclick="addToBag('{{ book.ISBN }}')">Add to Bag</button>
                   </td>
               </tr>
               {% endfor %}
               {% for book in book_results %}
               <tr>
-                  <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">{{ book.book_name }}</td>
-                  <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">{{ book.ISBN }}</td>
-                  <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">{{ book.author }}</td>
-                  <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">{{ book.category }}</td>
-                  <td style="border: 1px solid #4B088A; text-align: left; padding: 8px">
-                      <button onclick="addToBag('{{ book.ISBN }}')">Add to Bag</button>
+                  <td >{{ book.book_name }}</td>
+                  <td >{{ book.ISBN }}</td>
+                  <td >{{ book.author }}</td>
+                  <td >{{ book.category }}</td>
+                  <td >
+                      <button class="btn btn-success" onclick="addToBag('{{ book.ISBN }}')">Add to Bag</button>
                   </td>
               </tr>
               {% endfor %}
@@ -166,9 +181,6 @@
 
 
  
- 
-  
-
  
 
 
