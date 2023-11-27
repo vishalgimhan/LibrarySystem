@@ -37,11 +37,10 @@
             ">
                 <h4 class="text-center text-primary mb-4">Reader Information</h4>
 
-                <form role="search" method="GET" action="/search" class="mb-4">
+                <form role="search" method="GET" action="/get_reader" class="mb-4">
                     <div class="input-group">
                         <label for="reference_id" class="input-group-text" style="min-width: 150px;">Enter Reader Reference ID:</label>
                         <input type="text" id="reference_id" class="form-control" name="query">
-                        <button class="btn btn-outline-primary" type="submit">Go</button>
                     </div>
                 </form>
                 <div>
@@ -51,25 +50,17 @@
                     <h5>Search Results for "{{ query }}"</h5>
                     {% for reader in reader_results %}
                     <div class="col-md-6">
-                        <label for="reader_name" class="form-label"><strong>Name:</strong></label>
-                        <input type="text" name="reader_name" class="form-control" value="{{ reader.reader_name }}" readonly>
+                        <label for="selected_book_numbers" class="form-label"><strong>Selected Book Numbers:</strong></label>
+    <input type="number" id="selected_book_numbers" name="selected_book_numbers" class="form-control" value="{{ selected_books_count }}" readonly>
                     </div>
-                    
-                    <div class="col-md-6">
-                        <label for="reader_contact" class="form-label"><strong>Contact:</strong></label>
-                        <input type="text" name="reader_contact" class="form-control" value="{{ reader.reader_contact }}" readonly>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="reader_id" class="form-label"><strong>Address:</strong></label>
-                        <input type="text" name="reader_address" class="form-control" value="{{ reader.reader_address }}" readonly>
-                    </div>
+
                     <div class="col-md-6">
                         <label for="start_date" class="form-label"><strong>Start Date:</strong></label>
                         <input type="text" name="start_date" class="form-control" value="{% now "Y-m-d H:i:s" %}" readonly>
                     </div>
                     <div class="col-md-6">
                         <label for="return_due_date" class="form-label"><strong>Return Due Date:</strong></label>
-                        <input type="text" id="return_due_date" class="form-control" value="" readonly>
+    <input type="text" id="return_due_date" class="form-control" value="{% now "Y-m-d H:i:s" as current_date %}{{ current_date|date:"Y-m-d" }} {% with current_date as start_date %}{{ start_date|date:"Y-m-d" }}{% endwith %}" readonly>
                     </div>
                     {% endfor %}
                 </div>
@@ -78,7 +69,6 @@
                 {% endif %}
 
                 <div class="text-center">
-                    <button class="btn btn-primary mt-3" type="button">Checkout</button>
                 </div>
             </div>
         </div>
