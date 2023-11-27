@@ -25,8 +25,11 @@ urlpatterns = [
     path('readers/add', save_reader),
     path('books', books_tab),
     path('mybag', mybag_tab),
+    path('search/', reader_search, name="reader_search"),
     path('returns', returns_tab),
     path('search_book/', search_books, name='search_books'),
     path('search_reader/', search_reader, name='search_reader'),
 ]
+
+
 
