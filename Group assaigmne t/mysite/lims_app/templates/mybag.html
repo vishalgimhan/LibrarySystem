@@ -5,21 +5,27 @@
 
 <div class="container py-4">
     <div class="row justify-content-center align-items-center">
-        <div class="col-md-6 text-center text-light" style="background-color: #6C3483; border-radius: 5px; padding: 20px;">
-            <h2 class="m-0">Ready for Checkout</h2>
-        </div>
+    <div class="col-md-6 text-center text-light" style="
+        background-color: #6C3483;
+        border-radius: 5px;
+        padding: 20px;
+        margin-top: 20px;
+    ">
+        <h2 class="m-0">Ready for Checkout</h2>
     </div>
+</div>
 </div>
 
 <div class="container">
     <div class="row">
         <div class="col-md-4">
             <div class="card my-4 p-4" style="
-                background: linear-gradient(135deg, #8B0000, #3B240B); /* Dark Red - Brown mix */
+                background: #1A5276;
                 border-radius: 10px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+
             ">
-                <h4 class="text-center text-primary mb-4">Books for Borrowing</h4>
+                <h4 class="text-center text-primary mb-4"><strong>Books for Borrowing</strong></h4>
                 <ul class="list-unstyled" id="bookList">
                     <li><img src="{% static 'images/book1.jpg' %}" alt="Book 1" class="img-fluid mb-2"></li>
                     <li><img src="{% static 'images/book2.jpg' %}" alt="Book 2" class="img-fluid mb-2"></li>
@@ -29,31 +35,31 @@
         </div>
 
         <div class="col-md-8">
-            <div class="card my-4 p-4" style="
-                background-color: #8B0000; /* Dark Red - Brown mix */
-                border-radius: 10px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            ">
-                <h4 class="text-center text-primary mb-4">Reader Information</h4>
+    <div class="card my-4 p-4" style="
+        background-color: #1A5276;
+        border-radius: 10px;
+         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    ">
+        <h4 class="text-center text-primary mb-4"><strong>Reader Information<strong/></h4>
 
-                <div class="col-md-6">
-                    <label for="Number_of_total_book_in_cart" class="form-label"><strong>Number of total book in cart:</strong></label>
-                    <input type="number" id="Number_of_total_book_in_cart" name="Number_of_total_book_in_cart" class="form-control" value="{{ book_count }}" readonly>
-                </div>
-
-                <div class="col-md-6">
-                    <label for="start_date" class="form-label"><strong>Start Date:</strong></label>
-                    <input type="text" name="start_date" class="form-control" value="{% now "Y-m-d H:i:s" %}" readonly>
-                </div>
-                <div class="col-md-6">
-                    <label for="return_due_date" class="form-label"><strong>Return Due Date:</strong></label>
-                    <input type="text" id="return_due_date" class="form-control" value="{% now "Y-m-d H:i:s" as current_date %}{{ current_date|date:"Y-m-d" }} {% with current_date as start_date %}{{ start_date|date:"Y-m-d" }}{% endwith %}" readonly>
-                </div>
-
-                <div class="text-center">
-                </div>
-            </div>
+        <div class="col-md-6">
+            <label for="Number_of_total_book_in_cart" class="form-label"><strong>Number of total books in cart:</strong></label>
+            <input type="number" id="Number_of_total_book_in_cart" name="Number_of_total_book_in_cart" class="form-control" value="{{ book_count }}" readonly>
         </div>
+
+        <div class="col-md-6">
+            <label for="start_date" class="form-label"><strong>Start Date:</strong></label>
+            <input type="text" name="start_date" class="form-control" value="{% now "Y-m-d H:i:s" %}" readonly>
+        </div>
+        <div class="col-md-6">
+            <label for="return_due_date" class="form-label"><strong>Return Due Date:</strong></label>
+            <input type="text" id="return_due_date" class="form-control" value="{% now "Y-m-d H:i:s" as current_date %}{{ current_date|date:"Y-m-d" }} {% with current_date as start_date %}{{ start_date|date:"Y-m-d" }}{% endwith %}" readonly>
+        </div>
+
+        <div class="text-center">
+        </div>
+    </div>
+</div>
     </div>
 </div>
 
