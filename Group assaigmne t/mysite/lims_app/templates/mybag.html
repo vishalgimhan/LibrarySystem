@@ -37,21 +37,10 @@
             ">
                 <h4 class="text-center text-primary mb-4">Reader Information</h4>
 
-                <form role="search" method="GET" action="/get_reader" class="mb-4">
-                    <div class="input-group">
-                        <label for="reference_id" class="input-group-text" style="min-width: 150px;">Enter Reader Reference ID:</label>
-                        <input type="text" id="reference_id" class="form-control" name="query">
-                    </div>
-                </form>
-                <div>
 
-                {% if reader_results %}
-                <div class="reader-results">
-                    <h5>Search Results for "{{ query }}"</h5>
-                    {% for reader in reader_results %}
                     <div class="col-md-6">
                         <label for="selected_book_numbers" class="form-label"><strong>Selected Book Numbers:</strong></label>
-    <input type="number" id="selected_book_numbers" name="selected_book_numbers" class="form-control" value="{{ selected_books_count }}" readonly>
+                        <input type="number" id="selected_book_numbers" name="selected_book_numbers" class="form-control" value="{{ selected_books_count }}" readonly>
                     </div>
 
                     <div class="col-md-6">
@@ -60,23 +49,16 @@
                     </div>
                     <div class="col-md-6">
                         <label for="return_due_date" class="form-label"><strong>Return Due Date:</strong></label>
-    <input type="text" id="return_due_date" class="form-control" value="{% now "Y-m-d H:i:s" as current_date %}{{ current_date|date:"Y-m-d" }} {% with current_date as start_date %}{{ start_date|date:"Y-m-d" }}{% endwith %}" readonly>
+                        <input type="text" id="return_due_date" class="form-control" value="{% now "Y-m-d H:i:s" as current_date %}{{ current_date|date:"Y-m-d" }} {% with current_date as start_date %}{{ start_date|date:"Y-m-d" }}{% endwith %}" readonly>
                     </div>
-                    {% endfor %}
                 </div>
-                {% else %}
-                <h5>No results found for "{{ query }}"</h5>
-                {% endif %}
-
                 <div class="text-center">
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
-{% endblock %}
+{% endblock main_content %}
 
 
 
