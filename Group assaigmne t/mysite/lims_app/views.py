@@ -78,3 +78,16 @@ def get_reader(request):
 
 def returns_tab(request):
     return render(request, "returns.html", context={"current_tab": "returns"})
+
+#BAG
+def add_to_bag(request):
+    user = request.user
+    book_id = request.GET.get('book_id')
+    book = books.objects.get(id=book_id)
+    mybag(user=user, book=book).save()
+    return redirect('/mybag')
+
+def show_bag(request):
+    user = request.user
+    bag = mybag.objects.filter(user=user)
+    return render(request, 'mybag.html', locals())

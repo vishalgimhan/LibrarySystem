@@ -142,16 +142,18 @@
                       <button class="btn btn-success" onclick="addToBag('{{ book.ISBN }}')">Add to Bag</button>
                   </td>
               </tr>
-              {% endfor %}
-              {% for book in book_results %}
               <tr>
-                  <td >{{ book.book_name }}</td>
-                  <td >{{ book.ISBN }}</td>
-                  <td >{{ book.author }}</td>
-                  <td >{{ book.category }}</td>
-                  <td >
-                      <button class="btn btn-success" onclick="addToBag('{{ book.ISBN }}')">Add to Bag</button>
-                  </td>
+                <td>The Hobbit</td>
+                <td>ISBN-005</td>
+                <td>J.R.R. Tolkien</td>
+                <td>Fantasy</td>
+                <td>
+                    <div class="input-group">
+                        <div class="input-group-append">
+                            <button class="btn btn-success" onclick="addToBag('ISBN-001')">Add to Bag</button>
+                        </div>
+                    </div>
+                </td>
               </tr>
               {% endfor %}
   
