@@ -9,6 +9,10 @@ from .models import *
 def home(request):
     return render(request, "home.html", context={"current_tab": "home"})
 
+def login(request):
+    return render(request, "login.html", context={"current_tab": "login"})
+
+
 def readers(request):
     return render(request, "readers.html", context={"current_tab": "readers"})
 
