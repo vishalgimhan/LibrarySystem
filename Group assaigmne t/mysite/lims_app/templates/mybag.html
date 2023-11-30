@@ -5,88 +5,74 @@
 
 <div class="container py-4">
     <div class="row justify-content-center align-items-center">
-        <div class="col-md-6 text-center text-light" style="background-color: #6C3483; border-radius: 5px; padding: 20px;">
-            <h2 class="m-0">Ready for Checkout</h2>
-        </div>
+    <div class="col-md-6 text-center text-light" style="
+        background-color: #6C3483;
+        border-radius: 5px;
+        padding: 20px;
+        margin-top: 20px;
+    ">
+        <h2 class="m-0">Ready for Checkout</h2>
     </div>
+</div>
 </div>
 
 <div class="container">
     <div class="row">
         <div class="col-md-4">
             <div class="card my-4 p-4" style="
-                background-color: #F5F5F5;
+                background: #1A5276;
                 border-radius: 10px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+
             ">
                 <h4 class="text-center text-primary mb-4">Books for Borrowing</h4>
                 <ul class="list-unstyled">
-                    <li><img src="{% static 'images/book1.jpg' %}" alt="Book 1" class="img-fluid mb-2"></li>
-                    <li><img src="{% static 'images/book2.jpg' %}" alt="Book 2" class="img-fluid mb-2"></li>
-                    <li><img src="{% static 'images/book3.jpg' %}" alt="Book 3" class="img-fluid mb-2"></li>
-                    <!-- Add more books as needed -->
+                    {% for item in cart %}
+                    <li><img src="" alt="{{item.books.book_name}}1" class="img-fluid mb-2"></li>
+                        <div class="d-flex justify-content-between">
+                            <a href="/remove_from_cart/{{item.id}}" class="remove-cart btn btn-danger btn-sm">Remove</a>
+                        </div>
+                    {% endfor %}
                 </ul>
             </div>
         </div>
 
         <div class="col-md-8">
-            <div class="card my-4 p-4" style="
-                background-color: #F5F5F5;
-                border-radius: 10px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            ">
-                <h4 class="text-center text-primary mb-4">Reader Information</h4>
+    <div class="card my-4 p-4" style="
+        background-color: #1A5276;
+        border-radius: 10px;
+         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    ">
+        <h4 class="text-center text-primary mb-4"><strong>Reader Information<strong/></h4>
 
-                <form role="search" method="GET" action="/search" class="mb-4">
-                    <div class="input-group">
-                        <label for="reference_id" class="input-group-text" style="min-width: 150px;">Enter Reader Reference ID:</label>
-                        <input type="text" id="reference_id" class="form-control" name="query">
-                        <button class="btn btn-outline-primary" type="submit">Go</button>
-                    </div>
-                </form>
-                <div>
+        <div class="col-md-6">
+            <label for="Number_of_total_book_in_cart" class="form-label"><strong>Number of total books in cart:</strong></label>
+            <input type="number" id="Number_of_total_book_in_cart" name="Number_of_total_book_in_cart" class="form-control" value="{{ book_count }}" readonly>
+        </div>
 
-                {% if reader_results %}
-                <div class="reader-results">
-                    <h5>Search Results for "{{ query }}"</h5>
-                    {% for reader in reader_results %}
-                    <div class="col-md-6">
-                        <label for="reader_name" class="form-label"><strong>Name:</strong></label>
-                        <input type="text" name="reader_name" class="form-control" value="{{ reader.reader_name }}" readonly>
-                    </div>
-                    
-                    <div class="col-md-6">
-                        <label for="reader_contact" class="form-label"><strong>Contact:</strong></label>
-                        <input type="text" name="reader_contact" class="form-control" value="{{ reader.reader_contact }}" readonly>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="reader_id" class="form-label"><strong>Address:</strong></label>
-                        <input type="text" name="reader_address" class="form-control" value="{{ reader.reader_address }}" readonly>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="start_date" class="form-label"><strong>Start Date:</strong></label>
-                        <input type="text" name="start_date" class="form-control" value="{% now "Y-m-d H:i:s" %}" readonly>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="return_due_date" class="form-label"><strong>Return Due Date:</strong></label>
-                        <input type="text" id="return_due_date" class="form-control" value="" readonly>
-                    </div>
-                    {% endfor %}
-                </div>
-                {% else %}
-                <h5>No results found for "{{ query }}"</h5>
-                {% endif %}
+        <div class="col-md-6">
+            <label for="start_date" class="form-label"><strong>Start Date:</strong></label>
+            <input type="text" name="start_date" class="form-control" value="{% now "Y-m-d H:i:s" %}" readonly>
+        </div>
+        <div class="col-md-6">
+            <label for="return_due_date" class="form-label"><strong>Return Due Date:</strong></label>
+            <input type="text" id="return_due_date" class="form-control" value="{% now "Y-m-d H:i:s" as current_date %}{{ current_date|date:"Y-m-d" }} {% with current_date as start_date %}{{ start_date|date:"Y-m-d" }}{% endwith %}" readonly>
+        </div>
 
-                <div class="text-center">
-                    <button class="btn btn-primary mt-3" type="button">Checkout</button>
-                </div>
-            </div>
+        <div class="text-center">
         </div>
     </div>
 </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('Number_of_total_book_in_cart').value = document.getElementById('bookList').getElementsByTagName('li').length;
+</script>
+
+{% endblock main_content %}
 
 
-{% endblock %}
 
 
 
