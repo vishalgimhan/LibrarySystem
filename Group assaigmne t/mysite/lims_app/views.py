@@ -2,23 +2,20 @@ from django.shortcuts import render
 from django.contrib import admin
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-
-
-from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
 from . forms import UserRegistrationForm
 
 # Create your views here.
 from .models import *
+from django.views import View
 
 def home(request):
     return render(request, "home.html", context={"current_tab": "home"})
 
 
-class UserRegistrationView(View):
+class UserRegistrationView:
     def get(self,request):
         form = UserRegistrationForm()
-        return render(request, "login.html", context={"current_tab": "login"})
+        return render(request, "registration.html", locals())
 
 
 
