@@ -17,25 +17,54 @@ from django import views
 from django.contrib import admin
 from django.urls import path
 from .views import *
+from . import views
+from django.contrib.auth import views as auth_views
+from .forms import LoginForm, MyPasswordResetForm, MyPasswordChangeForm, MySetPasswordForm
 
 urlpatterns = [
     path('', home),
     path('home', home),
+
     path('readers', readers_tab),
     path('save', save_student),
     path('readers/add', save_reader),
+    path('search_reader/', search_reader, name='search_reader'),
+
     path('books', books_tab),
+    path('search_book/', search_books, name='search_books'),
 
     path('mybag', mybag_tab),
     path('get_reader/', get_reader, name="get_reader"),
-    path('add_to_bag/', add_to_bag, name="add_to_bag"),
-    path('mybag/', show_bag, name="showbag"),
+    
+    path('add_to_bag/', views.add_to_bag, name="add_to_bag"), #to add to bag
+    path('mybag/', show_bag, name="showbag"), #to show bag
     path('checkout/', show_bag, name="checkout"),
 
     path('returns', returns_tab),
-    path('search_book/', search_books, name='search_books'),
-    path('search_reader/', search_reader, name='search_reader'),
-]
 
+    path('profile/', views.ProfileView.as_view(), name='profile'),
+
+    #login authentication
+    path('registration/', views.StudentRegistrationView.as_view(), name='studentregistration'),
+
+    path('accounts/login/', auth_views.LoginView.as_view(template_name='login.html', authentication_form=LoginForm), name='login'),
+
+    #password change
+    path('password_change/', auth_views.PasswordChangeView.as_view(template_name='password_change.html', form_class=MyPasswordChangeForm, success_url='/password_changedone'), name='password_change'),
+
+    path('password_changedone/', auth_views.PasswordChangeDoneView.as_view(template_name='password_change_done.html'), name='password_change_done'),
+
+    #logout
+    path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
+
+    #password reset
+    path('password-reset/', auth_views.PasswordResetView.as_view(template_name='password_reset.html', form_class=MyPasswordResetForm), name='password_reset'),
+
+    path('password-reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='password_reset_done.html'), name='password_reset_done'),
+
+    path('password-reset-confirm/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='password_reset_confirm.html', form_class=MySetPasswordForm), name='password_reset_confirm'),
+
+    path('password-reset-complete/', auth_views.PasswordResetCompleteView.as_view(template_name='password_reset_complete.html'), name='password_reset_complete'),
+]
 
 
