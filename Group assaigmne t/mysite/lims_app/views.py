@@ -2,15 +2,24 @@ from django.shortcuts import render
 from django.contrib import admin
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
- 
+
+
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+from . forms import UserRegistrationForm
+
 # Create your views here.
 from .models import *
 
 def home(request):
     return render(request, "home.html", context={"current_tab": "home"})
 
-def login(request):
-    return render(request, "login.html", context={"current_tab": "login"})
+
+class UserRegistrationView(View):
+    def get(self,request):
+        form = UserRegistrationForm()
+        return render(request, "login.html", context={"current_tab": "login"})
+
 
 
 def readers(request):
@@ -37,7 +46,7 @@ def save_reader(request):
 def search_reader(request):
     query = request.GET.get('query')
     
-    # Use exact lookup to match the title exactly
+    
     reader_results = reader.objects.filter(reader_name__icontains=query)
 
     return render(
@@ -57,7 +66,7 @@ from django.shortcuts import render
 def search_books(request):
     query = request.GET.get('query')
     
-    # Use exact lookup to match the title exactly
+    
     book_results = books.objects.filter(book_name__icontains=query)
 
     return render(
@@ -66,12 +75,15 @@ def search_books(request):
         context={'book_results': book_results, 'query': query}
     )
 
+
 def mybag_tab(request):
-    return render(request, "mybag.html", context={"current_tab": "mybag"})
+    mybags = mybag.objects.all()
+    return render(request, "mybag.html", context={'current_tab':"mybag", 
+                                                    "mybags":mybags})
 
-def get_reader(request):
+def reader_search(request):
     query = request.GET.get('query')
-
+    
     reader_results = reader.objects.filter(reference_id__exact=query)
 
     return render(
@@ -83,15 +95,3 @@ def get_reader(request):
 def returns_tab(request):
     return render(request, "returns.html", context={"current_tab": "returns"})
 
-#BAG
-def add_to_bag(request):
-    user = request.user
-    book_id = request.GET.get('book_id')
-    book = books.objects.get(id=book_id)
-    mybag(user=user, book=book).save()
-    return redirect('/mybag')
-
-def show_bag(request):
-    user = request.user
-    bag = mybag.objects.filter(user=user)
-    return render(request, 'mybag.html', locals())
