@@ -66,9 +66,6 @@ def search_books(request):
         context={'book_results': book_results, 'query': query}
     )
 
-def mybag_tab(request):
-    return render(request, "mybag.html", context={"current_tab": "mybag"})
-
 def get_reader(request):
     query = request.GET.get('query')
 
