@@ -24,6 +24,28 @@ def home(request):
     return render(request, "home.html", context={"current_tab": "home", "totalitem": totalitem, 'wishitem': wishitem})
 
 @login_required
+
+# class UserRegistrationView(View):
+#    def get(self,request):
+#         form = UserRegistrationForm()
+#         return render(request, "registration.html", locals())
+   
+class UserRegistrationView(View):
+    def get(self, request):
+        form = UserRegistrationForm()
+        return render(request, "registration.html", locals())
+
+    def post(self, request):
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()  
+            messages.success(request,"Congratulations! Registration Successful")
+        else:
+            messages.warning(request,"Invalid Data Input")
+        return render(request, "registration.html", locals())
+
+
+
 def readers(request):
     totalitem = 0
     wishitem = 0
@@ -61,7 +83,7 @@ def save_reader(request):
 def search_reader(request):
     query = request.GET.get('query')
     
-    # Use exact lookup to match the title exactly
+    
     reader_results = reader.objects.filter(reader_name__icontains=query)
 
     return render(
@@ -89,7 +111,7 @@ def books_tab(request):
 def search_books(request):
     query = request.GET.get('query')
     
-    # Use exact lookup to match the title exactly
+    
     book_results = books.objects.filter(book_name__icontains=query)
 
     return render(
@@ -109,6 +131,7 @@ def mybag_tab(request):
 
 def get_reader(request):
     query = request.GET.get('query')
+    
     reader_results = reader.objects.filter(reference_id__exact=query)
     return render(
         request,

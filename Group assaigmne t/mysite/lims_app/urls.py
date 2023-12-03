@@ -35,7 +35,6 @@ urlpatterns = [
     path('books', books_tab),
     path('search_book/', search_books, name='search_books'),
 
-    path('mybag', mybag_tab),
     path('get_reader/', get_reader, name="get_reader"),
     
     path('add-to-bag/', views.add_to_bag, name="add-to-bag"), #to add to bag
@@ -50,6 +49,8 @@ urlpatterns = [
     path('minuswishlist/', views.minus_wishlist), #to Red Button
     path('wishlist/', views.show_wishlist, name='showwishlist'),
 
+    path('mybag', mybag_tab),
+    path('search/', reader_search, name="reader_search"),
     path('returns', returns_tab),
     path('orders', views.orders, name="orders"),
 
