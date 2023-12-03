@@ -127,7 +127,7 @@ def mybag_tab(request):
     if request.user.is_authenticated:
         totalitem = len(mybag.objects.filter(user=request.user))
         wishitem = len(Wishlist.objects.filter(user=request.user))
-    return render(request, "mybag.html", context={"current_tab": "mybag", "totalitem": totalitem, 'wishitem': wishitem})
+    return render(request, "addtobag.html", context={"current_tab": "mybag", "totalitem": totalitem, 'wishitem': wishitem})
 
 def get_reader(request):
     query = request.GET.get('query')
