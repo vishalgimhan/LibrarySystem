@@ -75,6 +75,7 @@ def search_books(request):
         context={'book_results': book_results, 'query': query}
     )
 
+<<<<<<< HEAD
 
 def mybag_tab(request):
     mybags = mybag.objects.all()
@@ -82,6 +83,9 @@ def mybag_tab(request):
                                                     "mybags":mybags})
 
 def reader_search(request):
+=======
+def get_reader(request):
+>>>>>>> d859bf38584e4c87f0aff951c13b94f395546a3c
     query = request.GET.get('query')
     
     reader_results = reader.objects.filter(reference_id__exact=query)
@@ -95,3 +99,18 @@ def reader_search(request):
 def returns_tab(request):
     return render(request, "returns.html", context={"current_tab": "returns"})
 
+<<<<<<< HEAD
+=======
+#BAG
+def add_to_bag(request):
+    user = request.user
+    book_id = request.GET.get('book_id')
+    book = books.objects.get(id=book_id)
+    mybag(user=user, book=book).save()
+    return redirect('/mybag')
+
+def show_bag(request):
+    user = request.user
+    bag = mybag.objects.filter(user=user)
+    return render(request, 'mybag.html', locals())
+>>>>>>> d859bf38584e4c87f0aff951c13b94f395546a3c

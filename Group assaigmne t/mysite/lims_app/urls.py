@@ -27,10 +27,8 @@ urlpatterns = [
     path('readers/add', save_reader),
     path('books', books_tab),
 
-    path('mybag', mybag_tab),
     path('get_reader/', get_reader, name="get_reader"),
     path('add_to_bag/', add_to_bag, name="add_to_bag"),
-    path('mybag/', show_bag, name="showbag"),
     path('checkout/', show_bag, name="checkout"),
 
     path('returns', returns_tab),
