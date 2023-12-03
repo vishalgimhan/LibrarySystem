@@ -29,13 +29,16 @@ urlpatterns = [
     path('save', save_student),
     path('readers/add', save_reader),
     path('books', books_tab),
+<<<<<<< HEAD
 
     path('get_reader/', get_reader, name="get_reader"),
     path('add_to_bag/', add_to_bag, name="add_to_bag"),
     path('checkout/', show_bag, name="checkout"),
 
+=======
     path('mybag', mybag_tab),
-    #path('search/', reader_search, name="reader_search"),
+    path('search/', reader_search, name="reader_search"),
+>>>>>>> Vidushi's_Branch
     path('returns', returns_tab),
     path('search_book/', search_books, name='search_books'),
     path('search_reader/', search_reader, name='search_reader'),
