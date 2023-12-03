@@ -120,46 +120,54 @@
 <div class="row" style="margin-top: 20px;">
     <div class="container" style="overflow-y: auto; height: 400px;">
         <table class="table table-hover">
-        
-          <thead style="background-color: #f2f2f2;font-weight: bold;">
-              <tr>
-                  <th >Book Name</th>
-
-                  <th>ISBN</th>
-                  <th >Author</th>
-                  <th >Category</th>
-                  <th >Actions</th>
-              </tr>
-          </thead>
-          <tbody>
-              {% for book in books %}
-              <tr>
-                  <td>{{ book.book_name }}</td>
-                  <td>{{ book.ISBN }}</td>
-                  <td>{{ book.author }}</td>
-                  <td>{{ book.category }}</td>
-                  <td>
-                      <button class="btn btn-success" onclick="addToBag('{{ book.ISBN }}')">Add to Bag</button>
-                  </td>
-              </tr>
-              <tr>
-                <td>The Hobbit</td>
-                <td>ISBN-005</td>
-                <td>J.R.R. Tolkien</td>
-                <td>Fantasy</td>
-                <td>
-                    <div class="input-group">
-                        <div class="input-group-append">
-                            <button class="btn btn-success" onclick="addToBag('ISBN-001')">Add to Bag</button>
-                        </div>
-                    </div>
-                </td>
-              </tr>
-              {% endfor %}
-  
-            </div>
+            <thead style="background-color: #f2f2f2;font-weight: bold;">
+                <tr>
+                    <th>Cover</th>
+                    <th>Book Name</th>
+                    <th>ISBN</th>
+                    <th>Author</th>
+                    <th>Category</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in books %}
+                <tr>
+                    <td>
+                    {% if book.book_image %}
+                        <img src="{{book.book_image.url}}" alt="" class="img-fluid img-thumbnail shadow-sm" height="50" width="50">
+                    {% else %}
+                        <img src="#" alt="" class="img-fluid">
+                    {% endif %}
+                    </td>
+                    <td>{{ book.book_name }}</td>
+                    <td>{{ book.ISBN }}</td>
+                    <td>{{ book.author }}</td>
+                    <td>{{ book.category }}</td>
+                    <td>
+                        <form action="{% url 'add-to-bag' %}" class="d-inline">
+                            <input type="hidden" name="bk_id" value={{book.id}} />
+                                {% if book.id in baglist_books %}
+                                    <button pid={{book.id}} type="submit" class="btn btn-secondary minus-baglist" >Add to Bag</button>
+                                {% else %}
+                                <button pid={{book.id}} type="submit" class="btn btn-success plus-baglist" >Add to Bag</button>
+                                {% endif %}
+                                
+                        </form>
+                    
+                        {% if book.id in wishlist_books %}
+                            <a pid={{book.id}} class="minus-wishlist btn btn-danger btn-sm shadow px-5 py-2 ms-4"><i class="fas fa-heart fa-lg"></i></a>
+                        {% else %}
+                            <a pid={{book.id}} class="plus-wishlist btn btn-success btn-sm shadow px-5 py-2 ms-4"><i class="fas fa-heart fa-lg"></i></a>
+                        {% endif %}
+                    </td>
+                </tr>
             
-            </div>
+              {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
             <script>
                 function addToBag(isbn) {
                 // You can implement the logic to add the book with the given ISBN to the shopping bag here

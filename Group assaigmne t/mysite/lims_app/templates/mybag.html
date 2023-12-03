@@ -27,10 +27,10 @@
             ">
                 <h4 class="text-center text-primary mb-4">Books for Borrowing</h4>
                 <ul class="list-unstyled">
-                    {% for item in cart %}
-                    <li><img src="" alt="{{item.books.book_name}}1" class="img-fluid mb-2"></li>
+                    {% for item in bag %}
+                    <li><img src="#" alt="{{item.book.book_name}}" class="img-fluid mb-2"></li>
                         <div class="d-flex justify-content-between">
-                            <a href="/remove_from_cart/{{item.id}}" class="remove-cart btn btn-danger btn-sm">Remove</a>
+                            <a href="#" class="remove-cart btn btn-danger btn-sm">Remove</a>
                         </div>
                     {% endfor %}
                 </ul>
@@ -71,22 +71,3 @@
 </script>
 
 {% endblock main_content %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
