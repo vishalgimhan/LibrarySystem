@@ -1,0 +1,67 @@
+{% extends "index.html" %}
+{% load static %}
+{% block title %}Add to Bag {% endblock title %}
+{% block main_content %}
+
+<div class="container my-5">
+    <div class="row">
+        {% if bag %}
+        <h1 class="text-center mb-5">My Bag</h1>
+        <div class="col-sm-8">
+            <div class="card">
+                <div class="card-body">
+                    <h3>Books in your bag</h3>
+                    {% for item in bag %}
+                    <div class="row">
+                        <div class="col-sm-3 text-center align-self-center">
+                            {% if item.book.book_image %}
+                                <img src="{{item.book.book_image.url}}" alt="" class="img-fluid img-thumbnail shadow-sm" height="150" width="150">
+                            {% else %}
+                                <img src="#" alt="" class="img-fluid">
+                            {% endif %}
+                        </div>
+                        <div class="col-sm-9">
+                            <div>
+                                <h5>{{item.book.book_name}}</h5>
+                                <p class="mb-2 text-muted small">{{item.book.author}}</p>
+                                <div class="d-flex justify-content-between">
+                                    <a href="" class="remove-cart btn btn-sm btn-secondary mr-3" pid="{{item.book.id}}">Remove</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="text-muted">
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <h3>Borrowing Information</h3>
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0 ">
+                            No. of books
+                            <input type="text" name="start_date" class="form-control" value="{{bag|length}}" readonly></li> 
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                            Start Date
+                            <input type="text" name="start_date" class="form-control" value="{% now "Y-m-d" %}" readonly></li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                            Return Date
+                            <input type="text" name="return_date" class="form-control" value="{% now "Y-m-d " %}" readonly></li>
+                    </ul>
+                    <form method="post" id="myform">
+                        <div class="d-grid">
+                            <button id="checkout-button" type="submit" class="btn btn-primary ">Checkout</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <h1 class="text-center">Your Bag is Empty</h1>
+        {% endif %}
+    </div>
+</div>
+{% endblock main_content %}
