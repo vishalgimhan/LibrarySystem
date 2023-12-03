@@ -16,8 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from .views import *
-from .import views
-from django import views
+from . import views
+from django.contrib.auth import views as auth_view
+from . forms import LoginForm,MyPasswordResetForm
+
+
 
 urlpatterns = [
     path('', home),
@@ -31,8 +34,14 @@ urlpatterns = [
     path('returns', returns_tab),
     path('search_book/', search_books, name='search_books'),
     path('search_reader/', search_reader, name='search_reader'),
+    
 
-    path('registration/',views.UserRegistrationView.as_view(), name = "userReg"),
+    path('registration/',views.UserRegistrationView.as_view(), name = "registration"),
+    path('accounts/login', auth_view.LoginView.as_view(template_name='login.html', 
+    authentication_form=LoginForm), name='login'),
+    #path('registration/',UserRegistrationView, name = "userReg"),
+    path('password-reset/', auth_view.PasswordResetView.as_view(template_name='password_reset.html', 
+    form_class=MyPasswordResetForm), name='password_reset'),
 
 ]
 
