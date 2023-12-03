@@ -1,0 +1,25 @@
+{% extends "index.html" %}
+{% load static %}
+{% block title %}Wishlist{% endblock title %}
+{% block main_content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="row">
+                {% for book in wishlistbooks %}
+                    <div class="col-sm-4 text-center mb-4 hover-shadow">
+                        <a href="#" class="btn">
+                            <div>
+                                <img src="{{book.book.image.url}}" height="200" width="200"/>
+                                <div class="fw-bold">{{book.book.book_name}}</div>
+                                <div class="fw-italic">{{book.book.author}}</div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+              
+{% endblock main_content %}
