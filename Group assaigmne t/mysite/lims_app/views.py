@@ -2,23 +2,34 @@ from django.shortcuts import render
 from django.contrib import admin
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-
-
-from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
 from . forms import UserRegistrationForm
-
+from django.contrib import messages
 # Create your views here.
 from .models import *
+from django.views import View
 
 def home(request):
     return render(request, "home.html", context={"current_tab": "home"})
 
 
+# class UserRegistrationView(View):
+#    def get(self,request):
+#         form = UserRegistrationForm()
+#         return render(request, "registration.html", locals())
+   
 class UserRegistrationView(View):
-    def get(self,request):
+    def get(self, request):
         form = UserRegistrationForm()
-        return render(request, "login.html", context={"current_tab": "login"})
+        return render(request, "registration.html", locals())
+
+    def post(self, request):
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()  
+            messages.success(request,"Congratulations! Registration Successful")
+        else:
+            messages.warning(request,"Invalid Data Input")
+        return render(request, "registration.html", locals())
 
 
 
@@ -75,17 +86,14 @@ def search_books(request):
         context={'book_results': book_results, 'query': query}
     )
 
-<<<<<<< HEAD
 
 def mybag_tab(request):
     mybags = mybag.objects.all()
     return render(request, "mybag.html", context={'current_tab':"mybag", 
                                                     "mybags":mybags})
 
-def reader_search(request):
-=======
+
 def get_reader(request):
->>>>>>> d859bf38584e4c87f0aff951c13b94f395546a3c
     query = request.GET.get('query')
     
     reader_results = reader.objects.filter(reference_id__exact=query)
@@ -99,8 +107,6 @@ def get_reader(request):
 def returns_tab(request):
     return render(request, "returns.html", context={"current_tab": "returns"})
 
-<<<<<<< HEAD
-=======
 #BAG
 def add_to_bag(request):
     user = request.user
@@ -113,4 +119,3 @@ def show_bag(request):
     user = request.user
     bag = mybag.objects.filter(user=user)
     return render(request, 'mybag.html', locals())
->>>>>>> d859bf38584e4c87f0aff951c13b94f395546a3c

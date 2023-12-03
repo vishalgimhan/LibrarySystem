@@ -13,27 +13,44 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django import views
 from django.contrib import admin
 from django.urls import path
 from .views import *
+from . import views
+from django.contrib.auth import views as auth_view
+from . forms import LoginForm,MyPasswordResetForm
+
+
 
 urlpatterns = [
     path('', home),
     path('home', home),
-    path('login', login),
     path('readers', readers_tab),
     path('save', save_student),
     path('readers/add', save_reader),
     path('books', books_tab),
+<<<<<<< HEAD
 
     path('get_reader/', get_reader, name="get_reader"),
     path('add_to_bag/', add_to_bag, name="add_to_bag"),
     path('checkout/', show_bag, name="checkout"),
 
+=======
+    path('mybag', mybag_tab),
+    path('search/', reader_search, name="reader_search"),
+>>>>>>> Vidushi's_Branch
     path('returns', returns_tab),
     path('search_book/', search_books, name='search_books'),
     path('search_reader/', search_reader, name='search_reader'),
+    
+
+    path('registration/',views.UserRegistrationView.as_view(), name = "registration"),
+    path('accounts/login', auth_view.LoginView.as_view(template_name='login.html', 
+    authentication_form=LoginForm), name='login'),
+    #path('registration/',UserRegistrationView, name = "userReg"),
+    path('password-reset/', auth_view.PasswordResetView.as_view(template_name='password_reset.html', 
+    form_class=MyPasswordResetForm), name='password_reset'),
+
 ]
 
 
