@@ -25,6 +25,9 @@ $(document).on('click', '.plus-wishlist', function(){
         success:function(response){
             thisBtn.removeClass('btn-success plus-wishlist');
             thisBtn.addClass('btn-danger minus-wishlist');
+
+            // Update the number of items in the wishlist
+            $('#wishitem').text(response.wishitem);
         }
     });
 });
@@ -41,6 +44,9 @@ $(document).on('click', '.minus-wishlist', function(){
         success:function(response){
             thisBtn.removeClass('btn-danger minus-wishlist');
             thisBtn.addClass('btn-success plus-wishlist');
+
+            // Update the number of items in the wishlist
+            $('#wishitem').text(response.wishitem);
         }
     });
 });
@@ -50,13 +56,16 @@ $(document).on('click', '.plus-baglist', function(){
     let thisBtn = $(this);
     $.ajax({
         type:'GET',
-        url: '/baglist',
+        url: '/plusbaglist',
         data:{
             'bk_id':id,
         },
         success:function(response){
             thisBtn.removeClass('btn-success plus-baglist');
             thisBtn.addClass('btn-secondary minus-baglist');
+
+            // Update the number of items in the baglist
+            $('#totalitem').text(response.totalitem);
         }
     });
 });
@@ -73,6 +82,9 @@ $(document).on('click', '.minus-baglist', function(){
         success:function(response){
             thisBtn.removeClass('btn-secondary minusbaglist');
             thisBtn.addClass('btn-success plusbaglist');
+            
+            // Update the number of items in the baglist
+            $('#totalitem').text(response.totalitem);
         }
     });
 });

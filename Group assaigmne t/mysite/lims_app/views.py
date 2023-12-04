@@ -118,12 +118,9 @@ def books_tab(request):
     return render(request, "books.html", context={"current_tab": "books","books":book_table, "totalitem": totalitem, 'wishitem': wishitem, 'wishlist_books': wishlist_books, 'baglist_books': baglist_books})
 
 
-def search_books(request):
+def search_book(request):
     query = request.GET.get('query')
-    
-    
     book_results = books.objects.filter(book_name__icontains=query)
-
     return render(
         request,
         'books.html',
@@ -158,27 +155,27 @@ def returns_tab(request):
         wishitem = len(Wishlist.objects.filter(user=request.user))
     return render(request, "returns.html", context={"current_tab": "returns", "totalitem": totalitem, 'wishitem': wishitem})
 
-#BAG
-@login_required
-def add_to_bag(request):
-    user = request.user
-    book_id = request.GET.get('bk_id')
-    book = books.objects.get(id=book_id)
-    mybag(user=user, book=book).save()
-    return redirect('/books')
 
 #@method_decorator(login_required, name='dispatch')
 class checkout(View):
     def get(self, request):
-        user = request.user
-        add = Student.objects.filter(user=user)
-        bag_items = mybag.objects.filter(user=user)
-        totalitem = 0
-        wishitem = 0
-        if request.user.is_authenticated:
-            totalitem = len(mybag.objects.filter(user=request.user))
-            wishitem = len(Wishlist.objects.filter(user=request.user))
-        return render(request, 'checkout.html', locals())
+        return render(request, 'addtobag.html')
+    def post(self, request):
+        bag = mybag.objects.filter(user=request.user)       
+        start_date = request.POST.get('start_date')
+        return_date = request.POST.get('return_date')
+
+        for item in bag:
+            order = Orders(
+                book=item.book,
+                order_date=start_date,
+                return_date=return_date,
+                user=request.user,
+                return_status = "Not Returned"
+            )
+            order.save()
+        bag.delete()
+        return redirect('orders')
 
 class UserRegistrationView(View):
     def get(self,request):
@@ -223,14 +220,15 @@ class ProfileView(View):
 
         return render(request, 'profile.html', locals())
     
-# def remove_bag(request):
-#     if request.method == 'GET':
-#         bk_id = request.GET['bk_id']
-#         user = request.user
-#         cart = mybag.objects.filter(user=user)
-#         b = mybag.objects.get(Q(id=bk_id) & Q(user=request.user))
-#         b.delete()
-        
+#BAG
+@login_required
+def add_to_bag(request):
+    user = request.user
+    book_id = request.GET.get('bk_id')
+    book = books.objects.get(id=book_id)
+    mybag(user=user, book=book).save()
+    return redirect('/books')
+
 def remove_bag(request):
     if request.method == 'GET':
         book_id = request.GET.get('bk_id')
@@ -240,7 +238,7 @@ def remove_bag(request):
         data={
             'message':'Removed from Cart'
         }
-        return JsonResponse(data)
+        return redirect('/books')
 
 @login_required
 def show_bag(request):
@@ -276,7 +274,8 @@ def plus_wishlist(request):
         data={
             'message':'Added to Wishlist'
         }
-        return JsonResponse(data)
+        wishlist_count = len(Wishlist.objects.filter(user=request.user))
+        return JsonResponse({ 'wishitem': wishlist_count })
     
 def minus_wishlist(request):
     if request.method == 'GET':
@@ -288,7 +287,8 @@ def minus_wishlist(request):
         data={
             'message':'Removed from Wishlist'
         }
-        return JsonResponse(data)
+        wishlist_count = len(Wishlist.objects.filter(user=request.user))
+        return JsonResponse({ 'wishitem': wishlist_count })
     
 @login_required
 def show_wishlist(request):
