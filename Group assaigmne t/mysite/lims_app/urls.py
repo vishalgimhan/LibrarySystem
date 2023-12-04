@@ -35,14 +35,14 @@ urlpatterns = [
     path('search_reader/', search_reader, name='search_reader'),
 
     path('books', books_tab),
-    path('search_book/', search_books, name='search_books'),
+    path('search_book', search_book, name='search_book'),
     path('get_reader/', get_reader, name="get_reader"),
     
     path('add-to-bag/', views.add_to_bag, name="add-to-bag"), #to add to bag
     path('bag/', show_bag, name="showbag"), #to show bag
     path('checkout/', views.checkout.as_view(), name="checkout"),
 
-    path('removebag/', views.remove_bag), #to remove from bag
+    path('removebag/', views.remove_bag, name="removebag"), #to remove from bag
     path('showbag', views.show_bag), #to show bag
     path('plusbaglist/', views.add_to_bag), #to Add to Bag
     path('minusbaglist/', views.remove_bag), #to Added to Bag
