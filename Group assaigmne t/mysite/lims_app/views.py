@@ -7,7 +7,7 @@ from django.views import View
 # Create your views here.
 from .models import *
 #from .forms import *
-from .forms import StudentProfileForm, StudentRegistrationForm
+from .forms import StudentProfileForm, UserRegistrationForm
 from django.contrib import messages
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
@@ -58,6 +58,16 @@ def readers(request):
 def save_student(request):
     student_name=request.POST['student_name']
     return render(request, "welcome.html", context={'student_name':student_name})
+
+@login_required
+def adminbooks_tab(request):
+    booksall = books.objects.all()
+    totalitem = 0
+    wishitem = 0
+    if request.user.is_authenticated:
+        totalitem = len(mybag.objects.filter(user=request.user))
+        wishitem = len(Wishlist.objects.filter(user=request.user))
+    return render(request, "adminbooks.html", context={"books":booksall, "totalitem": totalitem, 'wishitem': wishitem})
 
 @login_required
 def readers_tab(request):
@@ -170,9 +180,9 @@ class checkout(View):
             wishitem = len(Wishlist.objects.filter(user=request.user))
         return render(request, 'checkout.html', locals())
 
-class StudentRegistrationView(View):
+class UserRegistrationView(View):
     def get(self,request):
-        form = StudentRegistrationForm()
+        form = UserRegistrationForm()
         totalitem = 0
         wishitem = 0
         if request.user.is_authenticated:
@@ -180,7 +190,7 @@ class StudentRegistrationView(View):
             wishitem = len(Wishlist.objects.filter(user=request.user))
         return render(request, 'registration.html', locals())
     def post(self, request):
-        form = StudentRegistrationForm(request.POST)
+        form = UserRegistrationForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request,"User Registered Successfully!")

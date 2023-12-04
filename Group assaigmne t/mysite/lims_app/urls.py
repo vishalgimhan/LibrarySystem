@@ -27,7 +27,9 @@ urlpatterns = [
     path('', home),
     path('home', home),
 
+    path('adminbooks', adminbooks_tab),
     path('readers', readers_tab),
+
     path('save', save_student),
     path('readers/add', save_reader),
     path('search_reader/', search_reader, name='search_reader'),
@@ -56,7 +58,7 @@ urlpatterns = [
     path('profile/', views.ProfileView.as_view(), name='profile'),
 
     #login authentication
-    path('registration/', views.StudentRegistrationView.as_view(), name='registration'),
+    path('registration/', views.UserRegistrationView.as_view(), name='registration'),
     path('accounts/login/', auth_views.LoginView.as_view(template_name='login.html', authentication_form=LoginForm), name='login'),
 
     #password change
