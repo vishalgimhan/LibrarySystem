@@ -64,7 +64,14 @@
   </style>
 </head>
 <body>
-
+  <div class="container-flex text-center justify-content-center align-items-center" style="padding-top: 10px; margin-left: 10px; vertical-align: middle;">
+    <div class="row justify-content-center align-items-center" style="margin-top: 10px; height: 50px;">
+        <div class="col-md-4 text-light d-flex align-items-center justify-content-center" style="background-color: #4B088A; height: 35py px;">
+            <h3 style="margin-top: 15px;">Returns</h3> 
+        </div>        
+    </div>
+</div>
+<br>
   <table class="table table-hover">
     <thead>
       <tr>
@@ -77,50 +84,17 @@
       </tr>
     </thead>
     <tbody>
-      {% for book in orders %}
+      {% for order in orders %}
         <tr>
-          <td>
-            <td>{{ book.book_name }}</td>
-            <td>{{ book.ISBN }}</td>
-            <td>{{ book.author }}</td>
-            <td>{{ book.category }}</td>
-            <td>
-              {% if book.id in baglist_books %}
-                <form action="{% url 'removebag' %}" class="d-inline">
-                  <input type="hidden" name="bk_id" value={{book.id}} />
-                  <button pid={{book.id}} type="submit" class="btn btn-secondary minus-baglist" >Add to Bag</button>
-                </form>
-              {% else %}
-                 <form action="{% url 'add-to-bag' %}" class="d-inline">
-                    <input type="hidden" name="bk_id" value={{book.id}} />
-                    <button pid={{book.id}} type="submit" class="btn btn-success plus-baglist" >Add to Bag</button>
-                 </form>
-              {% endif %}
+          <td>{{ order.book.book_name }}</td>
+          <td>{{ order.order_date }}</td>
+          <td>{{ order.return_date }}</td>
+          <td>{{ order.return_date|timesince:order.order_date }}</td>
+          <td>Rs. 0</td>
+          <td><button class="btn btn-secondary">Contact Admin</button></td>
       {% endfor %}
     </tbody>
   </table>
-
-  <script>
-    function searchTable(category, value) {
-      const rows = document.querySelectorAll("#library-table tbody tr");
-
-      for (let i = 0; i < rows.length; i++) {
-        const cells = rows[i].getElementsByTagName("td");
-        const cellValue = cells[category === "userName" ? 1 : category === "bookTitle" ? 2 : 3].innerText.toLowerCase();
-
-        if (cellValue.includes(value.toLowerCase())) {
-          rows[i].style.display = "";
-        } else {
-          rows[i].style.display = "none";
-        }
-      }
-    }
-
-    function returnBook(bookID) {
-      // Handle the logic for returning a book here
-      alert(`Book with ID ${bookID} has been returned!`);
-    }
-  </script>
 
 </body>
 </html>

@@ -22,22 +22,19 @@
 </div>
 
 <br>
-<div>
+<div style="margin-left: 60px;">
   {% if book_results %}
   <div class="search-results">
       <h5>Search Results for "{{ query }}"</h5>
       <p>{{book_results|length}} books available.</p>
-      {% for book in book_results %}
-    
-      {% endfor %}
-  </div>
   {% else  %}
     <h5>No results found for {{ query }}</h5>
     <p>{{books|length}} books available.</p>
   {% endif %}
   </div>
+</div>
 
-<div class="row" style="margin-top: 20px;">
+<div class="row" style="margin-left: 40px;">
     <div class="container" style="overflow-y: auto; height: 400px;">
         <table class="table table-hover">
             <thead style="background-color: #f2f2f2;font-weight: bold;">

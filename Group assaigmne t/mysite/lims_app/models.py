@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -45,8 +46,8 @@ STATUS_CHOICES = (
 class Orders(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     book = models.ForeignKey(books, on_delete=models.CASCADE)
-    order_date = models.DateField(auto_now_add=True)
-    return_date = models.DateField(auto_now_add=True)
+    order_date = models.DateField(default=timezone.now)
+    return_date = models.DateField(default=timezone.now)
     return_status = models.CharField(max_length=50, choices=STATUS_CHOICES, default="Not Returned")
 
     def _str_(self):

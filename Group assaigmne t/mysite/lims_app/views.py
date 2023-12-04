@@ -184,13 +184,17 @@ def get_reader(request):
 
 @login_required
 def returns_tab(request):
-    orders_table = Orders.objects.filter(book_id=bk_id)
+    orders_table = Orders.objects.filter(user=request.user)
+    date_diffs = []
+    for order in orders_table:
+        date_diff = (order.return_date - order.order_date).days
+        date_diffs.append(date_diff)
     totalitem = 0
     wishitem = 0
     if request.user.is_authenticated:
         totalitem = len(mybag.objects.filter(user=request.user))
         wishitem = len(Wishlist.objects.filter(user=request.user))
-    return render(request, "returns.html", context={"current_tab": "returns","orders":orders_table, "totalitem": totalitem, 'wishitem': wishitem})
+    return render(request, "returns.html", context={"current_tab": "returns","orders":orders_table, 'date_diffs': date_diffs, "totalitem": totalitem, 'wishitem': wishitem})
 
 
 #@method_decorator(login_required, name='dispatch')
