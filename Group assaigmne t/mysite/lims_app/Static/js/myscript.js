@@ -1,6 +1,7 @@
-$('.remove-cart').click(function(){
+$(document).on('click', '.remove-cart', function(){
+    console.log('Remove button clicked');  // Check if the click event is firing
     var id = $(this).attr("pid").toString();
-    var eml = this
+    var eml = this;
     $.ajax({
         type: "GET",
         url: "/removebag",
@@ -8,10 +9,12 @@ $('.remove-cart').click(function(){
             'bk_id': id
         },
         success: function(data){
-            eml.parentNode.parentNode.parentNode.parentNode.remove()
+            console.log('Ajax request successful');  // Check if the Ajax request is successful
+            console.log($(eml).closest('.row'));  // Check if the closest .row element is found
+            $(eml).closest('.row').remove();
         }
-    })
-})
+    });
+});
 
 $(document).on('click', '.plus-wishlist', function(){
     let id = $(this).attr('pid').toString();

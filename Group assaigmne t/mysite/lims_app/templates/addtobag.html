@@ -3,19 +3,25 @@
 {% block title %}Add to Bag {% endblock title %}
 {% block main_content %}
 
+<div class="container-flex text-center justify-content-center align-items-center" style="padding-top: 10px; margin-left: 10px; vertical-align: middle;">
+    <div class="row justify-content-center align-items-center" style="margin-top: 10px; height: 50px;">
+        <div class="col-md-4 text-light d-flex align-items-center justify-content-center" style="background-color: #4B088A; height: 35py px;">
+            <h3 style="margin-top: 15px;">My Bag</h3> 
+        </div>        
+    </div>
+</div>
 <div class="container my-5">
     <div class="row">
         {% if bag %}
-        <h1 class="text-center mb-5">My Bag</h1>
         <div class="col-sm-8">
             <div class="card">
                 <div class="card-body">
-                    <h3>Books in your bag</h3>
+                    <h3>Books in your bag</h3><br>
                     {% for item in bag %}
                     <div class="row">
                         <div class="col-sm-3 text-center align-self-center">
                             {% if item.book.book_image %}
-                                <img src="{{item.book.book_image.url}}" alt="" class="img-fluid img-thumbnail shadow-sm" height="150" width="150">
+                                <img src="{{item.book.book_image.url}}" alt="" class="img-fluid img-thumbnail shadow-sm" height="100" width="100">
                             {% else %}
                                 <img src="#" alt="" class="img-fluid">
                             {% endif %}

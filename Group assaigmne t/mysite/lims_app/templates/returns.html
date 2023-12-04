@@ -77,23 +77,26 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>ISBN-001</td>
-        <td>2023-11-15</td>
-        <td>2023-12-01</td>
-        <td>10</td>
-        <td>$5.00</td>
-        <td><button class="return-button" onclick="returnBook('ISBN-001')">Return</button></td>
-      </tr>
-      <tr>
-        <td>ISBN-002</td>
-        <td>2023-10-20</td>
-        <td>2023-11-25</td>
-        <td>5</td>
-        <td>$2.50</td>
-        <td><button class="return-button" onclick="returnBook('ISBN-002')">Return</button></td>
-      </tr>
-
+      {% for book in orders %}
+        <tr>
+          <td>
+            <td>{{ book.book_name }}</td>
+            <td>{{ book.ISBN }}</td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.category }}</td>
+            <td>
+              {% if book.id in baglist_books %}
+                <form action="{% url 'removebag' %}" class="d-inline">
+                  <input type="hidden" name="bk_id" value={{book.id}} />
+                  <button pid={{book.id}} type="submit" class="btn btn-secondary minus-baglist" >Add to Bag</button>
+                </form>
+              {% else %}
+                 <form action="{% url 'add-to-bag' %}" class="d-inline">
+                    <input type="hidden" name="bk_id" value={{book.id}} />
+                    <button pid={{book.id}} type="submit" class="btn btn-success plus-baglist" >Add to Bag</button>
+                 </form>
+              {% endif %}
+      {% endfor %}
     </tbody>
   </table>
 

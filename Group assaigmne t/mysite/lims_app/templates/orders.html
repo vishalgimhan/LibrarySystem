@@ -2,9 +2,18 @@
 {% load static %}
 {% block title %}Orders{% endblock title %}
 {% block main_content %}
+
+<div class="container-flex text-center justify-content-center align-items-center" style="padding-top: 10px; margin-left: 10px; vertical-align: middle;">
+    <div class="row justify-content-center align-items-center" style="margin-top: 10px; height: 50px;">
+        <div class="col-md-4 text-light d-flex align-items-center justify-content-center" style="background-color: #4B088A; height: 35py px;">
+            <h3 style="margin-top: 15px;">Orders</h3> 
+        </div>        
+    </div>
+</div>
+
 <div class="container my-5">
     <div class="row">
-        <h3>Welcome <span class="text-capitalize">{{user.username}}</span></h3>
+        <h3>Welcome <span class="text-capitalize">{{user.username}}</span></h3><br><br>
         <div class="col-sm-2 border-end">
             <ul class="list-unstyled">
             <li><class="d-grid"><a href="{% url 'orders' %}" class="btn btn-primary">Orders</a></li>
@@ -15,7 +24,9 @@
         {% for op in order_placed %}
         <div class="row">
             <div class="col-sm-2">
-                <img src="{{op.book.image.url}}" alt="" class="img-fluid" height="100" width="100">
+                <img src="{{op.book.book_image}}" alt="" class="img-fluid" height="100" width="100">
+                <p>Image URL: {{op.book.book_image}}</p>
+
             </div>
             <div class="col-sm-7">
                 <p>Book : {{op.book.book_name}}</p>
