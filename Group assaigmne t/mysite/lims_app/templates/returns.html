@@ -64,7 +64,14 @@
   </style>
 </head>
 <body>
-
+  <div class="container-flex text-center justify-content-center align-items-center" style="padding-top: 10px; margin-left: 10px; vertical-align: middle;">
+    <div class="row justify-content-center align-items-center" style="margin-top: 10px; height: 50px;">
+        <div class="col-md-4 text-light d-flex align-items-center justify-content-center" style="background-color: #4B088A; height: 35py px;">
+            <h3 style="margin-top: 15px;">Returns</h3> 
+        </div>        
+    </div>
+</div>
+<br>
   <table class="table table-hover">
     <thead>
       <tr>
@@ -77,47 +84,17 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>ISBN-001</td>
-        <td>2023-11-15</td>
-        <td>2023-12-01</td>
-        <td>10</td>
-        <td>$5.00</td>
-        <td><button class="return-button" onclick="returnBook('ISBN-001')">Return</button></td>
-      </tr>
-      <tr>
-        <td>ISBN-002</td>
-        <td>2023-10-20</td>
-        <td>2023-11-25</td>
-        <td>5</td>
-        <td>$2.50</td>
-        <td><button class="return-button" onclick="returnBook('ISBN-002')">Return</button></td>
-      </tr>
-
+      {% for order in orders %}
+        <tr>
+          <td>{{ order.book.book_name }}</td>
+          <td>{{ order.order_date }}</td>
+          <td>{{ order.return_date }}</td>
+          <td>{{ order.return_date|timesince:order.order_date }}</td>
+          <td>Rs. 0</td>
+          <td><button class="btn btn-secondary">Contact Admin</button></td>
+      {% endfor %}
     </tbody>
   </table>
-
-  <script>
-    function searchTable(category, value) {
-      const rows = document.querySelectorAll("#library-table tbody tr");
-
-      for (let i = 0; i < rows.length; i++) {
-        const cells = rows[i].getElementsByTagName("td");
-        const cellValue = cells[category === "userName" ? 1 : category === "bookTitle" ? 2 : 3].innerText.toLowerCase();
-
-        if (cellValue.includes(value.toLowerCase())) {
-          rows[i].style.display = "";
-        } else {
-          rows[i].style.display = "none";
-        }
-      }
-    }
-
-    function returnBook(bookID) {
-      // Handle the logic for returning a book here
-      alert(`Book with ID ${bookID} has been returned!`);
-    }
-  </script>
 
 </body>
 </html>

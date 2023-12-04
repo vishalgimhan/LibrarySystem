@@ -8,45 +8,43 @@
         <div class="col-md-4 text-light" style="background-color: #4B088A;">
             <h4 style="margin-top: 15px;">Add new book</h4>
         </div>
-        <div class="col-md-8">
-            <h4>Search books</h4>
+        <div class="col-md-8 text-light" style="background-color: #4B088A;">
+            <h4 style="margin-top: 15px;">Search books</h4>
         </div>
     </div>
 </div>
 
 <div class="row">
     <div class="col-md-4">
-        <div class="container" style="overflow-y: auto; height: 600px; background: #CEECF5;">
-            <form class="d-flex" action="/readers/add" method="POST">
-    {% csrf_token %}
-    <table class="table" style="margin-top: 20px;">
-        <tr>
-            <td style="text-align: left; vertical-align: middle; padding-left: 15px;">Book Name:</td>
-            <td><input type="text" class="form-control" name="Book Name"></td>
-        </tr>
-        <tr>
-            <td style="text-align: left; vertical-align: middle; padding-left: 15px;">ISBN : </td>
-            <td><input type="text" class="form-control" name="ISBN"></td>
-        </tr>
-        <tr>
-            <td style="text-align: left; vertical-align: middle; padding-left: 15px;">Author : </td>
-            <td><input type="text" class="form-control" name="Author"></td>
-        </tr>
-        <tr>
-            <td style="text-align: left; vertical-align: middle; padding-left: 15px;">Category : </td>
-            <td><input type="text" class="form-control" name="Category"></td>
-        </tr>
-        <tr>
-            <td style="text-align: left; vertical-align: middle; padding-left: 15px;">Image : </td>
-            <td><input type="file" class="form-control" name="Image"></td>
-        </tr>
-        <tr>
-            <td colspan="2"><button class="btn btn-primary" type="submit">Save</button></td>
-        </tr>
-    </table>
-</form>
-
-
+        <div class="container" style="overflow-y: auto; height: auto; background: #CEECF5;">
+            <form class="d-flex" action="/adminbooks/add" method="POST">
+                {% csrf_token %}
+                <table class="table" style="margin-top: 20px;">
+                    <tr>
+                        <td style="text-align: left; vertical-align: middle; padding-left: 15px;">Book Name:</td>
+                        <td><input type="text" class="form-control" name="book_name"></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left; vertical-align: middle; padding-left: 15px;">ISBN : </td>
+                        <td><input type="text" class="form-control" name="book_ISBN"></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left; vertical-align: middle; padding-left: 15px;">Author : </td>
+                        <td><input type="text" class="form-control" name="book_author"></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left; vertical-align: middle; padding-left: 15px;">Category : </td>
+                        <td><input type="text" class="form-control" name="book_category"></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left; vertical-align: middle; padding-left: 15px;">Image : </td>
+                        <td><input type="file" class="form-control" name="book_image"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><button class="btn btn-primary" type="submit">Save</button></td>
+                    </tr>
+                </table>
+            </form>
         </div>
     </div>
 
@@ -54,7 +52,7 @@
         <div class="row">
             <nav class="navbar bg-body-light">
                 <div class="container-fluid justify-content-center align-items-center">
-                    <form class="d-flex" role="search" action="/search_reader" method="get">
+                    <form class="d-flex" role="search" action="/adminbooks/search" method="get">
                         <input class="form-control me-2" type="text" placeholder="Search Book Name" name="query">
                         <button class="btn btn-outline-primary" type="submit">Search</button>
                     </form>
@@ -63,48 +61,61 @@
         </div>
 
         <div>
-            {% if reader_results %}
+            {% if book_results %}
             <div class="search-results">
                 <h5>Search Results for "{{ query }}"</h5>
-                <p>{{books_results|length}} found book.</p>
-
-            </div>
+                <p>{{book_results|length}} books found.</p>
             {% else  %}
               <h5>No results found for "{{ query }}"</h5>
-              <p>{{readers|length}} found book.</p>
+              <p>{{books|length}} books found.</p>
             {% endif %}
             </div>
 
         <div class="row" style="margin-top: 20px;">
-            <div class="container" style="overflow-y: auto; height: 400px;">
+            <div class="container" style="overflow-y: auto; height: 800px;">
                 <table class="table table-hover">
-    <thead>
-        <tr>
-            <th>Book Name</th>
-            <th>ISBN</th>
-            <th>Author</th>
-            <th>Category</th>
-            <th>Cover</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for book in books %}
-            <tr>
-                <td>{{ book.book_name }}</td>
-                <td>{{ book.ISBN }}</td>
-                <td>{{ book.author }}</td>
-                <td>{{ book.category }}</td>
-                <td>
-                    {% if book.book_image %}
-                        <img src="{{ book.book_image.url }}" alt="{{ book.book_name }}" style="max-width: 100px;">
-                    {% else %}
-                        No Image
-                    {% endif %}
-                </td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
+                    <thead>
+                        <tr>
+                            <th>Book Name</th>
+                            <th>ISBN</th>
+                            <th>Author</th>
+                            <th>Category</th>
+                            <th>Cover</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for book in books %}
+                            <tr>
+                                <td>{{ book.book_name }}</td>
+                                <td>{{ book.ISBN }}</td>
+                                <td>{{ book.author }}</td>
+                                <td>{{ book.category }}</td>
+                                <td>
+                                    {% if book.book_image %}
+                                        <img src="{{ book.book_image.url }}" alt="{{ book.book_name }}" style="max-width: 100px;">
+                                    {% else %}
+                                        No Image
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        {% for book in book_results %}
+                            <tr>
+                                <td>{{ book.book_name }}</td>
+                                <td>{{ book.ISBN }}</td>
+                                <td>{{ book.author }}</td>
+                                <td>{{ book.category }}</td>
+                                <td>
+                                    {% if book.book_image %}
+                                        <img src="{{ book.book_image.url }}" alt="{{ book.book_name }}" style="max-width: 100px;">
+                                    {% else %}
+                                        No Image
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
 
             </div>
         </div>

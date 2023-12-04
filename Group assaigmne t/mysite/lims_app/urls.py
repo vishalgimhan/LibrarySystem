@@ -32,11 +32,13 @@ urlpatterns = [
 
     path('save', save_student),
     path('readers/add', save_reader),
-    path('search_reader/', search_reader, name='search_reader'),
+    path('reader/search/', views.search_reader, name='search_reader'),
+    path('get_reader/', get_reader, name="get_reader"),
 
     path('books', books_tab),
-    path('search_book', search_book, name='search_book'),
-    path('get_reader/', get_reader, name="get_reader"),
+    path('adminbooks/add', save_book),
+    path('books/search', search_book, name='search_book'),
+    path('adminbooks/search', search_book2, name='search_adminbook'),
     
     path('add-to-bag/', views.add_to_bag, name="add-to-bag"), #to add to bag
     path('bag/', show_bag, name="showbag"), #to show bag

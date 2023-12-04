@@ -44,8 +44,6 @@ class UserRegistrationView(View):
             messages.warning(request,"Invalid Data Input")
         return render(request, "registration.html", locals())
 
-
-
 def readers(request):
     totalitem = 0
     wishitem = 0
@@ -69,9 +67,29 @@ def adminbooks_tab(request):
         wishitem = len(Wishlist.objects.filter(user=request.user))
     return render(request, "adminbooks.html", context={"books":booksall, "totalitem": totalitem, 'wishitem': wishitem})
 
+def save_book(request):
+    book_name = request.POST.get('book_name')
+    book_ISBN = request.POST.get('book_ISBN')
+    book_author = request.POST.get('book_author')
+    book_category = request.POST.get('book_category')
+    book_image = request.POST.get('book_image')
+
+    if book_name and book_ISBN and book_author and book_category and book_image:
+        book_item, created = books.objects.update_or_create(
+            ISBN=book_ISBN,
+            defaults={
+                'book_name': book_name,
+                'author': book_author,
+                'category': book_category,
+                'book_image': book_image,
+            }
+        )
+    return redirect('/adminbooks')
+
 @login_required
 def readers_tab(request):
-    readers = reader.objects.all()
+    readers = User.objects.all()
+
     totalitem = 0
     wishitem = 0
     if request.user.is_authenticated:
@@ -81,26 +99,30 @@ def readers_tab(request):
 
 @login_required
 def save_reader(request):
-    reader_item = reader(reference_id = request.POST['reader_ref_id'],
-                        reader_name = request.POST['reader_name'],
-                        reader_contact = request.POST['reader_contact'],
-                        reader_address = request.POST['address'],
-                        active = True
-                        )
-    reader_item.save()
+    reader_username = request.POST.get('reader_username')
+    reader_firstname = request.POST.get('reader_firstname')
+    reader_lastname = request.POST.get('reader_lastname')
+    reader_email = request.POST.get('reader_email')
+
+    if reader_username and reader_firstname and reader_lastname and reader_email:
+        reader_item = User(username=reader_username,
+                           first_name=reader_firstname,
+                           last_name=reader_lastname,
+                           email=reader_email)
+        reader_item.save()
+
     return redirect('/readers')
 
 def search_reader(request):
     query = request.GET.get('query')
-    
-    
-    reader_results = reader.objects.filter(reader_name__icontains=query)
+    reader_results = User.objects.filter(username__icontains=query)
 
-    return render(
-        request,
-        'readers.html',
-        context={'reader_results': reader_results, 'query': query}
-    )
+    totalitem = 0
+    wishitem = 0
+    if request.user.is_authenticated:
+        totalitem = len(mybag.objects.filter(user=request.user))
+        wishitem = len(Wishlist.objects.filter(user=request.user))
+    return render(request,'readers.html', context={'reader_results': reader_results, 'query': query, "totalitem": totalitem, 'wishitem': wishitem})
 
 @login_required
 def books_tab(request):
@@ -109,7 +131,6 @@ def books_tab(request):
     
     wishlist_books = Wishlist.objects.filter(user=request.user).values_list('book', flat=True)
     baglist_books = mybag.objects.filter(user=request.user).values_list('book', flat=True)
-
     totalitem = 0
     wishitem = 0
     if request.user.is_authenticated:
@@ -121,11 +142,26 @@ def books_tab(request):
 def search_book(request):
     query = request.GET.get('query')
     book_results = books.objects.filter(book_name__icontains=query)
-    return render(
-        request,
-        'books.html',
-        context={'book_results': book_results, 'query': query}
-    )
+
+    wishlist_books = Wishlist.objects.filter(user=request.user).values_list('book', flat=True)
+    baglist_books = mybag.objects.filter(user=request.user).values_list('book', flat=True)
+    totalitem = 0
+    wishitem = 0
+    if request.user.is_authenticated:
+        totalitem = len(mybag.objects.filter(user=request.user))
+        wishitem = len(Wishlist.objects.filter(user=request.user))
+    return render(request,'books.html',context={'book_results': book_results, 'query': query, "totalitem": totalitem, 'wishitem': wishitem, 'wishlist_books': wishlist_books, 'baglist_books': baglist_books})
+
+def search_book2(request):
+    query = request.GET.get('query')
+    book_results = books.objects.filter(book_name__icontains=query)
+
+    totalitem = 0
+    wishitem = 0
+    if request.user.is_authenticated:
+        totalitem = len(mybag.objects.filter(user=request.user))
+        wishitem = len(Wishlist.objects.filter(user=request.user))
+    return render(request,'adminbooks.html',context={'book_results': book_results, 'query': query, "totalitem": totalitem, 'wishitem': wishitem})
 
 @login_required
 def mybag_tab(request):
@@ -148,12 +184,17 @@ def get_reader(request):
 
 @login_required
 def returns_tab(request):
+    orders_table = Orders.objects.filter(user=request.user)
+    date_diffs = []
+    for order in orders_table:
+        date_diff = (order.return_date - order.order_date).days
+        date_diffs.append(date_diff)
     totalitem = 0
     wishitem = 0
     if request.user.is_authenticated:
         totalitem = len(mybag.objects.filter(user=request.user))
         wishitem = len(Wishlist.objects.filter(user=request.user))
-    return render(request, "returns.html", context={"current_tab": "returns", "totalitem": totalitem, 'wishitem': wishitem})
+    return render(request, "returns.html", context={"current_tab": "returns","orders":orders_table, 'date_diffs': date_diffs, "totalitem": totalitem, 'wishitem': wishitem})
 
 
 #@method_decorator(login_required, name='dispatch')
@@ -226,7 +267,10 @@ def add_to_bag(request):
     user = request.user
     book_id = request.GET.get('bk_id')
     book = books.objects.get(id=book_id)
-    mybag(user=user, book=book).save()
+    bag = mybag.objects.filter(user=request.user, book=book)
+    if not bag.exists():
+            bag = mybag(user=request.user, book=book)
+            bag.save()
     return redirect('/books')
 
 def remove_bag(request):
