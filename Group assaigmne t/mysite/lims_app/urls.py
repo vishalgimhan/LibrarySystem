@@ -56,7 +56,7 @@ urlpatterns = [
     path('profile/', views.ProfileView.as_view(), name='profile'),
 
     #login authentication
-    path('registration/', views.StudentRegistrationView.as_view(), name='studentregistration'),
+    path('registration/', views.StudentRegistrationView.as_view(), name='registration'),
     path('accounts/login/', auth_views.LoginView.as_view(template_name='login.html', authentication_form=LoginForm), name='login'),
 
     #password change
