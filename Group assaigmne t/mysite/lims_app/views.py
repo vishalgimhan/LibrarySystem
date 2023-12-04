@@ -178,7 +178,7 @@ class StudentRegistrationView(View):
         if request.user.is_authenticated:
             totalitem = len(mybag.objects.filter(user=request.user))
             wishitem = len(Wishlist.objects.filter(user=request.user))
-        return render(request, 'userregistration.html', locals())
+        return render(request, 'registration.html', locals())
     def post(self, request):
         form = StudentRegistrationForm(request.POST)
         if form.is_valid():
@@ -186,7 +186,7 @@ class StudentRegistrationView(View):
             messages.success(request,"User Registered Successfully!")
         else:
             messages.warning(request,"Invalid Input Data")
-        return render(request, 'userregistration.html', locals())
+        return render(request, 'registration.html', locals())
     
 class ProfileView(View):
     def get(self,request):

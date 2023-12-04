@@ -58,9 +58,9 @@
                     </li>
                     <li class="nav-item">
                         {% if current_tab == 'mybag' %}
-                            <a class="nav-link active text-white" aria-current="page" href="/mybag" style="color:#A73118;">MY BAG</a>
+                            <a class="nav-link active text-white" aria-current="page" href="{% url 'showbag' %}" style="color:#A73118;">MY BAG</a>
                         {% else %}
-                            <a class="nav-link" aria-current="page" href="/mybag">MY BAG</a>
+                            <a class="nav-link" aria-current="page" href="{% url 'showbag' %}">MY BAG</a>
                         {% endif %}
                     </li>
                     <li class="nav-item">
@@ -77,6 +77,7 @@
                 {% if request.user.is_authenticated %}
                 <li class="nav-item dropdown mx-2">
                     <a class="nav-link dropdown-toggle text-white" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-user"></i>
                         <span class="text-capitalize">{{user.username}}</span></a>
                     <ul class="dropdown-menu" aria-labelledby="profileDropdown">
                         <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
@@ -87,7 +88,7 @@
                     </ul>
                 </li>
                 <li class="nav-item mx-2">
-                    <a href="{% url 'showbag' %}" class="nav-link text-white">Cart
+                    <a href="{% url 'showbag' %}" class="nav-link text-white"><i class="fa fa-shopping-bag"></i>
                         <!--To show number of items in cart--> 
                         <span class="badge bg-danger">{% if totalitem > 0 %} {{totalitem}} {% endif %}</span>
                     </a>
@@ -98,9 +99,6 @@
                     </a>
                 </li>
                 {% else %}
-                <li class="nav-item mx-2">
-                    <a href="{% url 'login' %}" class="nav-link text-white">Login</a>
-                </li>
                 <li class="nav-item mx-2">
                     <a href="{% url 'login' %}" class="nav-link text-white">Login</a>
                 </li>
