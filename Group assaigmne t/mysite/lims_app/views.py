@@ -169,16 +169,7 @@ def add_to_bag(request):
 
 #@method_decorator(login_required, name='dispatch')
 class checkout(View):
-    def get(self, request):
-        user = request.user
-        add = Student.objects.filter(user=user)
-        bag_items = mybag.objects.filter(user=user)
-        totalitem = 0
-        wishitem = 0
-        if request.user.is_authenticated:
-            totalitem = len(mybag.objects.filter(user=request.user))
-            wishitem = len(Wishlist.objects.filter(user=request.user))
-        return render(request, 'checkout.html', locals())
+    pass
 
 class UserRegistrationView(View):
     def get(self,request):
