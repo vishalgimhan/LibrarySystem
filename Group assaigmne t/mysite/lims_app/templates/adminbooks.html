@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {% extends "index.html" %}
 {% load static %}
 
@@ -7,7 +6,7 @@
 <div class="container-flex text-center justify-content-center align-items-center" style="padding-top: 10px; padding-bottom: 20px; margin-left: 10px; vertical-align: middle;">
     <div class="row justify-content-center align-middle" style="margin-top: 10px; height: 60px;">
         <div class="col-md-4 text-light" style="background-color: #4B088A;">
-            <h4 style="margin-top: 15px;">add new book</h4>
+            <h4 style="margin-top: 15px;">Add new book</h4>
         </div>
         <div class="col-md-8">
             <h4>Search Readers</h4>
@@ -19,31 +18,34 @@
     <div class="col-md-4">
         <div class="container" style="overflow-y: auto; height: 600px; background: #CEECF5;">
             <form class="d-flex" action="/readers/add" method="POST">
-                {% csrf_token %}
-                <table class="table" style="margin-top: 20px;">
-                    <tr>
-                        <td style="text-align: left; vertical-align: middle; padding-left: 15px;">Name : </td>
-                        <td><input type="text" class="form-control" name="Book Name"></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left; vertical-align: middle; padding-left: 15px;">Contact : </td>
-                        <td><input type="text" class="form-control" name="ISBN"></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left; vertical-align: middle; padding-left: 15px;">Reference Id : </td>
-                        <td><input type="text" class="form-control" name="Author"></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left; vertical-align: middle; padding-left: 15px;">Address : </td>
-                        <td><textarea type="text" class="form-control" name="Category"></textarea></td>
-                    </tr>
+    {% csrf_token %}
+    <table class="table" style="margin-top: 20px;">
+        <tr>
+            <td style="text-align: left; vertical-align: middle; padding-left: 15px;">Book Name : </td>
+            <td><input type="text" class="form-control" name="Book Name"></td>
+        </tr>
+        <tr>
+            <td style="text-align: left; vertical-align: middle; padding-left: 15px;">ISBN : </td>
+            <td><input type="text" class="form-control" name="ISBN"></td>
+        </tr>
+        <tr>
+            <td style="text-align: left; vertical-align: middle; padding-left: 15px;">Author : </td>
+            <td><input type="text" class="form-control" name="Author"></td>
+        </tr>
+        <tr>
+            <td style="text-align: left; vertical-align: middle; padding-left: 15px;">Category : </td>
+            <td><input type="text" class="form-control" name="Category"></td>
+        </tr>
+        <tr>
+            <td style="text-align: left; vertical-align: middle; padding-left: 15px;">Image : </td>
+            <td><input type="file" class="form-control" name="Image"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><button class="btn btn-primary" type="submit">Save</button></td>
+        </tr>
+    </table>
+</form>
 
-                    <tr>
-                        <td colspan="2"><button class="btn btn-primary" type="submit">Save</button></td>
-                    </tr>
-
-                </table>
-            </form>
 
         </div>
     </div>
@@ -53,7 +55,7 @@
             <nav class="navbar bg-body-light">
                 <div class="container-fluid justify-content-center align-items-center">
                     <form class="d-flex" role="search" action="/search_reader" method="get">
-                        <input class="form-control me-2" type="text" placeholder="Search Reader Name" name="query">
+                        <input class="form-control me-2" type="text" placeholder="Search Book Name" name="query">
                         <button class="btn btn-outline-primary" type="submit">Search</button>
                     </form>
                 </div>
@@ -78,11 +80,11 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <td>Reader Id</td>
-                            <td>Name</td>
-                            <td>Contact</td>
-                            <td>Reference Id</td>
-                            <td>Address</td>
+                            <td>Book Name</td>
+                            <td>ISBN  </td>
+                            <td>Author </td>
+                            <td>Category </td>
+                            <td>Cover</td>
                         </tr>
                     </thead>
                     <tbody>
