@@ -304,3 +304,25 @@ def show_wishlist(request):
         wishitem = len(Wishlist.objects.filter(user=request.user))
     wishlistbooks = Wishlist.objects.filter(user=user)
     return render(request, 'wishlist.html', locals())
+
+@login_required
+def add_book(request):
+    if request.method == 'POST':
+        book_name = request.POST.get('book_name')
+        ISBN = request.POST.get('ISBN')
+        author = request.POST.get('author')
+        category = request.POST.get('category')
+        # Assuming book_image is handled separately due to FileField
+        # book_image = request.FILES['book_image']
+
+        # Create a new book object and save it to the database
+        new_book = books(
+            book_name=book_name,
+            ISBN=ISBN,
+            author=author,
+            category=category,
+            # book_image=book_image
+        )
+        new_book.save()
+        return redirect('adminbooks_tab')  # Redirect to a specific page after adding the book
+    return render(request,'adminbooks.html')
