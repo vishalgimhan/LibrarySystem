@@ -158,9 +158,6 @@ def returns_tab(request):
 
 #@method_decorator(login_required, name='dispatch')
 class checkout(View):
-<<<<<<< HEAD
-    pass
-=======
     def get(self, request):
         return render(request, 'addtobag.html')
     def post(self, request):
@@ -179,7 +176,6 @@ class checkout(View):
             order.save()
         bag.delete()
         return redirect('orders')
->>>>>>> vishal-branch
 
 class UserRegistrationView(View):
     def get(self,request):
