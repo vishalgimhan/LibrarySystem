@@ -1,44 +1,113 @@
-<!DOCTYPE html>
 {% extends "index.html" %}
 {% load static %}
 
 {% block main_content %}
 
+<style>
+  /* Set the width and height of the carousel container */
+  .slick-carousel {
+    width: 100%;
+    height: 500px; /* Adjust the height as needed */
+    overflow: hidden; /* Ensure the fixed content stays on top of the carousel */
+  }
+
+  /* Set the width and height of the images within the carousel */
+  .slick-carousel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Style for the fixed content */
+  .fixed-content {
+    position: relative;
+    z-index: 1; /* Ensure the fixed content is above the carousel */
+    background-color: rgba(255, 255, 255, 0.8); /* Adjust the background color and opacity as needed */
+    padding: 20px;
+    text-align: center; /* Center the content */
+  }
+
+  /* Style for the thought of the day */
+  .thought-of-the-day {
+    background-color: #f8f9fa; /* Adjust the background color as needed */
+    padding: 20px;
+    margin-top: 20px;
+    text-align: center; /* Center the content */
+  }
+</style>
+
 <main role="main">
+
+
+
+  <main role="main">
   <div class="jumbotron">
     <div class="container">
-      <div class="jumbotron" style="background: url('{% static 'library_back.png' %}') no-repeat center center; background-size: cover; background-color: rgba(255, 255, 255, 0.6);">
+      <div class="jumbotron">
       <img src="{% static '/LIMS_LOGO.png' %} " class="roundered float-start" alt="LIMS" height="170" style="margin-right: 10px;">
       <h1 class="display-5"><b> Hello Fellow Readers!</b></h1>
       <p style="font-size: 18px"> Welcome to University of Moratuwa Library. We have a larger collection of books to cater the reading needs of all kinds of readers.</p>
       <p><a role="button" href="/books" class="btn btn-danger" style="background-color: #A73118;">Browse our collection >> </a></p>
     </div>
   </div>
+  
 
-  <div class="container ">
+  <div class="slick-carousel">
+    <div><img src="{% static 'Image.jpg' %}" alt="First slide"></div>
+    <div><img src="{% static 'Img2.jpg' %}" alt="Second slide"></div>
+    <div><img src="{% static 'Image2.jpg' %}" alt="Second slide"></div>
+    
+    <div><img src="{% static 'Image4.jpg' %}" alt="Second slide"></div>
+    <!-- Add more slides as needed -->
+  </div>
+
+ 
+
+  <div class="container thought-of-the-day">
+    <h4>Thought for the day!</h4>
+    <p>"Libraries store the energy that fuels the imagination. They open up windows to the world and inspire us to explore and achieve, and contribute to improving our quality of life." <br><b>- Sidney Sheldon</b> </p>
+  </div>
+
+  <div class="container">
     <div class="row">
       <div class="col">
         <h4>Why reading is important?</h4>
-          <p>Reading is important as it enhances knowledge, expands vocabulary, and improves critical thinking. It exposes us to diverse ideas, cultures, and perspectives, fostering empathy and understanding. Reading also enhances communication skills and is a fundamental tool for learning and personal growth.</p>
+        <p>Reading is important as it enhances knowledge, expands vocabulary, and improves critical thinking. It exposes us to diverse ideas, cultures, and perspectives, fostering empathy and understanding. Reading also enhances communication skills and is a fundamental tool for learning and personal growth.</p>
       </div>
       
       <div class="col">
         <h4>Key benefits</h4>
         <ul>
-            <li>Improve mental health</li>
-            <li>Prevents cognitive decline</li>
-            <li>Increase your vocabulary and comprehensive skills</li>
+          <li>Improve mental health</li>
+          <li>Prevents cognitive decline</li>
+          <li>Increase your vocabulary and comprehensive skills</li>
         </ul>
       </div>
       
-      <div class="col">
-        <h4>Thought for the day!</h4>
-        <p>"Libraries store the energy that fuels the imagination.They open up windows to the world and inspire us to explore and achieve,and contribute to improving our quality of life." <br><b>- Sidney Sheldon</b> </p>
-      </div>
+      <!-- Add more columns as needed -->
+
     </div>
     <hr>
   </div>
 </main>
+
+<!-- jQuery without integrity -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+
+<!-- Slick Carousel CSS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css"/>
+
+<!-- Slick Carousel JS -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
+
+<script>
+  $(document).ready(function(){
+    $('.slick-carousel').slick({
+      autoplay: true,
+      autoplaySpeed: 2000,  // Adjust the interval as needed (in milliseconds)
+    });
+  });
+</script>
 
 <!--footer class ="container">
  <p>@UoM 2023</p>
