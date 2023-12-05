@@ -23,6 +23,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> <!--font awesome icons-->
     <script src="{% static "js/myscript.js" %}"></script>
+    <link rel="icon" href="{% static 'favicon.ico' %}">
     
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #A73118">
         <div class="container-fluid">
@@ -82,6 +83,7 @@
                         {% comment %} {% if user.username == 'admin' %} {% endcomment %}
                         <li><a class="dropdown-item" href="/readers">Readers</a></li>
                         <li><a class="dropdown-item" href="/adminbooks">Books</a></li>
+                        <li><a class="dropdown-item" href="/admin">Admin DBs</a></li>
                         {% comment %} {% endif %} {% endcomment %}
                     </ul>
                 </li>
