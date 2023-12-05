@@ -130,7 +130,7 @@ def books_tab(request):
     wishlist = Wishlist.objects.filter(Q(user=request.user) & Q(book__in=book_table))
     
     wishlist_books = Wishlist.objects.filter(user=request.user).values_list('book', flat=True)
-    baglist_books = mybag.objects.filter(user=request.user).values_list('book', flat=True)
+    baglist_books = set(list(mybag.objects.filter(user=request.user).values_list('book', flat=True)) + list(Orders.objects.filter(user=request.user).values_list('book', flat=True)))    
     totalitem = 0
     wishitem = 0
     if request.user.is_authenticated:
@@ -165,6 +165,7 @@ def search_book2(request):
 
 @login_required
 def mybag_tab(request):
+    orders = Orders.objects.filter(user=request.user)
     totalitem = 0
     wishitem = 0
     if request.user.is_authenticated:
@@ -196,15 +197,25 @@ def returns_tab(request):
         wishitem = len(Wishlist.objects.filter(user=request.user))
     return render(request, "returns.html", context={"current_tab": "returns","orders":orders_table, 'date_diffs': date_diffs, "totalitem": totalitem, 'wishitem': wishitem})
 
-
+@login_required
+def adminreturns_tab(request):
+    orders_table = Orders.objects.all()
+    returnlist_books = Orders.objects.filter(user=request.user).values_list('book', flat=True)
+    totalitem = 0
+    wishitem = 0
+    if request.user.is_authenticated:
+        totalitem = len(mybag.objects.filter(user=request.user))
+        wishitem = len(Wishlist.objects.filter(user=request.user))
+    return render(request, "adminreturns.html", context={"current_tab": "returns","orders":orders_table,"totalitem": totalitem, 'wishitem': wishitem, 'returnlist_books': returnlist_books})
+    
 #@method_decorator(login_required, name='dispatch')
 class checkout(View):
     def get(self, request):
         return render(request, 'addtobag.html')
     def post(self, request):
         bag = mybag.objects.filter(user=request.user)       
-        start_date = request.POST.get('start_date')
-        return_date = request.POST.get('return_date')
+        start_date = request.POST.get('start_date').strip()
+        return_date = request.POST.get('return_date').strip()
 
         for item in bag:
             order = Orders(

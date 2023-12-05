@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+{% extends "index.html" %}
+{% load static %}
+
+{% block main_content %}
+<html lang="en">
+<head>
+  <style>
+    body {
+      text-align: center;
+      background-color: #fdfafd;
+      font-family: Arial, sans-serif;
+    }
+
+
+    .return-button {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 8px 16px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 14px;
+      margin: 8px 4px;
+      transition-duration: 0.4s;
+      cursor: pointer;
+      border-radius: 4px;
+      outline: none;
+    }
+
+    .return-button:hover {
+      background-color: #45a049;
+    }
+
+
+    #library-table {
+      border-collapse: collapse;
+      width: 80%;
+      margin: auto;
+      border: 2px solid #4B088A;
+      margin-top: 30px;
+    }
+
+    #library-table th,
+    #library-table td {
+      border: 1px solid #4B088A;
+      padding: 12px;
+      text-align: center;
+    }
+
+    #library-table thead tr:first-child th {
+      background-color: silver;
+    }
+
+    #library-table thead tr:not(:first-child) th {
+      background-color: #D8BFD8;
+    }
+
+    #library-table thead {
+      background-color: #f2f2f2;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container-flex text-center justify-content-center align-items-center" style="padding-top: 10px; margin-left: 10px; vertical-align: middle;">
+    <div class="row justify-content-center align-items-center" style="margin-top: 10px; height: 50px;">
+        <div class="col-md-4 text-light d-flex align-items-center justify-content-center" style="background-color: #4B088A; height: 35py px;">
+            <h3 style="margin-top: 15px;">Returns</h3>
+        </div>
+    </div>
+</div>
+<br>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Book Name</th>
+        <th>Start Date</th>
+        <th>Return Date</th>
+        <th>Remaining Days</th>
+        <th>Fine</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for order in orders %}
+        <tr>
+          <td>{{ order.user.username }}</td>
+          <td>{{ order.book.book_name }}</td>
+          <td id="orderdate" class="orderdate">{{ order.order_date }}</td>
+          <td id="returndate" class="returndate">{{ order.return_date }}</td>
+          <td id="date_difference" class="datedifference"></td>
+          <td id="fine" class="fine"></td>
+      {% endfor %}
+    </tbody>
+  </table>
+
+</body>
+</html>
+
+{% endblock %}
