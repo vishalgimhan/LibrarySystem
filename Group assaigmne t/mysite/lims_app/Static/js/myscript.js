@@ -92,6 +92,38 @@ $(document).on('click', '.minus-baglist', function(){
     });
 });
 
+$(document).on('click', '.plus-returnlist', function(){
+    let id = $(this).attr('pid').toString();
+    let thisBtn = $(this);
+    $.ajax({
+        type:'GET',
+        url: '/plusreturnlist',
+        data:{
+            'bk_id':id,
+        },
+        success:function(response){
+            thisBtn.removeClass('btn-success plus-returnlist');
+            thisBtn.addClass('btn-secondary minus-returnlist');
+        }
+    });
+});
+
+$(document).on('click', '.minus-returnlist', function(){
+    let id = $(this).attr('pid').toString();
+    let thisBtn = $(this);
+    $.ajax({
+        type:'GET',
+        url: '/minusreturnlist',
+        data:{
+            'bk_id':id,
+        },
+        success:function(response){
+            thisBtn.removeClass('btn-secondary minus-returnlist');
+            thisBtn.addClass('btn-success plus-returnlist');
+        }
+    });
+});
+
 window.onload = function() {
     var inputElement = document.getElementById("start_date");
     var returnElement = document.getElementById("return_date");

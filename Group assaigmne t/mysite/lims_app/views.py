@@ -200,14 +200,14 @@ def returns_tab(request):
 @login_required
 def adminreturns_tab(request):
     orders_table = Orders.objects.all()
+    returnlist_books = Orders.objects.filter(user=request.user).values_list('book', flat=True)
     totalitem = 0
     wishitem = 0
     if request.user.is_authenticated:
         totalitem = len(mybag.objects.filter(user=request.user))
         wishitem = len(Wishlist.objects.filter(user=request.user))
-    return render(request, "adminreturns.html", context={"current_tab": "returns","orders":orders_table,"totalitem": totalitem, 'wishitem': wishitem})
-
-
+    return render(request, "adminreturns.html", context={"current_tab": "returns","orders":orders_table,"totalitem": totalitem, 'wishitem': wishitem, 'returnlist_books': returnlist_books})
+    
 #@method_decorator(login_required, name='dispatch')
 class checkout(View):
     def get(self, request):
