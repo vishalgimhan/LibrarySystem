@@ -67,8 +67,8 @@
   <div class="container-flex text-center justify-content-center align-items-center" style="padding-top: 10px; margin-left: 10px; vertical-align: middle;">
     <div class="row justify-content-center align-items-center" style="margin-top: 10px; height: 50px;">
         <div class="col-md-4 text-light d-flex align-items-center justify-content-center" style="background-color: #4B088A; height: 35py px;">
-            <h3 style="margin-top: 15px;">Returns</h3> 
-        </div>        
+            <h3 style="margin-top: 15px;">Returns</h3>
+        </div>
     </div>
 </div>
 <br>
@@ -87,10 +87,17 @@
       {% for order in orders %}
         <tr>
           <td>{{ order.book.book_name }}</td>
-          <td id="orderdate" class="orderdate">{{ order.order_date }}</td>
-          <td id="returndate" class="returndate">{{ order.return_date }}</td>
-          <td id="date_difference" class="datedifference"></td>
-          <td id="fine" class="fine"></td>
+          <td>{{ order.order_date }}</td>
+          <td>{{ order.return_date }}</td>
+          <td>{{ order.return_date|timesince:order.order_date }}</td>
+          <td>{% if order.return_date > now %}
+              Rs. 0
+            {% else %}
+              {% with days=(order.return_date - now).days %}
+                Rs. {{ days * 5 }}
+              {% endwith %}
+            {% endif %}
+          </td></td>
           <td><button class="btn btn-secondary">Contact Admin</button></td>
       {% endfor %}
     </tbody>
@@ -100,9 +107,3 @@
 </html>
 
 {% endblock %}
-
-
-
-
-
-

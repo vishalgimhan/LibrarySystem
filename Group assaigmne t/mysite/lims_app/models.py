@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -17,7 +18,7 @@ class books(models.Model):
     ISBN = models.CharField(max_length=13, unique=True)
     author = models.CharField(max_length=100)
     category = models.CharField(max_length=50)
-    book_image = models.ImageField(upload_to='book/', null=True, blank=True)
+    book_image = models.ImageField(upload_to='books/', null=True, blank=True)
 
     def _str_(self):
         return self.book_name
@@ -32,6 +33,7 @@ class Student(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100)
     mobile = models.CharField(max_length=12)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def _str_(self):
         return self.name
@@ -44,8 +46,8 @@ STATUS_CHOICES = (
 class Orders(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     book = models.ForeignKey(books, on_delete=models.CASCADE)
-    order_date = models.DateField(auto_now_add=True)
-    return_date = models.DateField(auto_now_add=True)
+    order_date = models.DateField(default=timezone.now)
+    return_date = models.DateField(default=timezone.now)
     return_status = models.CharField(max_length=50, choices=STATUS_CHOICES, default="Not Returned")
 
     def _str_(self):
