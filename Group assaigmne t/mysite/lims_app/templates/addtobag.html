@@ -52,18 +52,19 @@
                             <li class="list-group-item d-flex justify-content-between align-items-center px-0 ">
                                 No. of books
                                 <input type="text" name="start_date" class="form-control" value="{{bag|length}}" readonly></li> 
+
                             <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                                 Start Date
-                                <input type="text" name="start_date" class="form-control" value="{% now "Y-m-d" %}" readonly></li>
+                                <input type="text" id="start_date" name="start_date" class="form-control" value="{% now "Y-m-d " %}" readonly></li>
                             <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                                 Return Date
-                                <input type="text" name="return_date" class="form-control" value="{% now "Y-m-d " %}" readonly></li>
+                                <input type="text" id="return_date" name="return_date" class="form-control" value="{% now "Y-m-d " %}" readonly></li>
+                                
                         </ul>
                         
                         <div class="d-grid">
                             <button id="checkout-button" type="submit" class="btn btn-primary ">Checkout</a>
                         </div>
-                        
                     </form>
                 </div>
             </div>
@@ -73,4 +74,5 @@
         {% endif %}
     </div>
 </div>
+
 {% endblock main_content %}
