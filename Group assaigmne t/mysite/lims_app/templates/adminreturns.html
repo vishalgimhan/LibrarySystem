@@ -75,23 +75,47 @@
   <table class="table table-hover">
     <thead>
       <tr>
+<<<<<<< HEAD
         <th>Username</th>
         <th>Book Name</th>
+=======
+        <th>Book ID</th>
+>>>>>>> vishal-branch
         <th>Start Date</th>
         <th>Return Date</th>
         <th>Remaining Days</th>
         <th>Fine</th>
+<<<<<<< HEAD
+=======
+        <th>Return Book</th>
+>>>>>>> vishal-branch
       </tr>
     </thead>
     <tbody>
       {% for order in orders %}
         <tr>
+<<<<<<< HEAD
           <td>{{ order.user.username }}</td>
           <td>{{ order.book.book_name }}</td>
           <td id="orderdate" class="orderdate">{{ order.order_date }}</td>
           <td id="returndate" class="returndate">{{ order.return_date }}</td>
           <td id="date_difference" class="datedifference"></td>
           <td id="fine" class="fine"></td>
+=======
+          <td>{{ order.book.book_name }}</td>
+          <td>{{ order.order_date }}</td>
+          <td>{{ order.return_date }}</td>
+          <td>{{ order.return_date|timesince:order.order_date }}</td>
+          <td>{% if order.return_date > now %}
+              Rs. 0
+            {% else %}
+              {% with days=(order.return_date - now).days %}
+                Rs. {{ days * 5 }}
+              {% endwith %}
+            {% endif %}
+          </td></td>
+          <td><button class="btn btn-secondary">Contact Admin</button></td>
+>>>>>>> vishal-branch
       {% endfor %}
     </tbody>
   </table>
