@@ -8,33 +8,33 @@
         <div class="col-md-4 text-light" style="background-color: #4B088A;">
             <h4 style="margin-top: 15px;">Register New Reader</h4>
         </div>
-        <div class="col-md-8">
-            <h4>Search Readers</h4>
+        <div class="col-md-8 text-light" style="background-color: #4B088A;">
+            <h4 style="margin-top: 15px;">Search Readers</h4>
         </div>
     </div>
 </div>
 
 <div class="row">
     <div class="col-md-4">
-        <div class="container" style="overflow-y: auto; height: 600px; background: #CEECF5;">
+        <div class="container" style="overflow-y: auto; height: auto; background: #CEECF5;">
             <form class="d-flex" action="/readers/add" method="POST">
                 {% csrf_token %}
                 <table class="table" style="margin-top: 20px;">
                     <tr>
-                        <td style="text-align: left; vertical-align: middle; padding-left: 15px;">Name : </td>
-                        <td><input type="text" class="form-control" name="reader_name"></td>
+                        <td style="text-align: left; vertical-align: middle; padding-left: 15px;">Username : </td>
+                        <td><input type="text" class="form-control" name="reader_username"></td>
                     </tr>
                     <tr>
-                        <td style="text-align: left; vertical-align: middle; padding-left: 15px;">Contact : </td>
-                        <td><input type="text" class="form-control" name="reader_contact"></td>
+                        <td style="text-align: left; vertical-align: middle; padding-left: 15px;">First Name : </td>
+                        <td><input type="text" class="form-control" name="reader_firstname"></td>
                     </tr>
                     <tr>
-                        <td style="text-align: left; vertical-align: middle; padding-left: 15px;">Reference Id : </td>
-                        <td><input type="text" class="form-control" name="reader_ref_id"></td>
+                        <td style="text-align: left; vertical-align: middle; padding-left: 15px;">Last Name : </td>
+                        <td><input type="text" class="form-control" name="reader_lastname"></td>
                     </tr>
                     <tr>
-                        <td style="text-align: left; vertical-align: middle; padding-left: 15px;">Address : </td>
-                        <td><textarea type="text" class="form-control" name="address"></textarea></td>
+                        <td style="text-align: left; vertical-align: middle; padding-left: 15px;">Email : </td>
+                        <td><input type="text" class="form-control" name="reader_email"></textarea></td>
                     </tr>
 
                     <tr>
@@ -48,6 +48,8 @@
                 <li><small>Readers should not submit multiple times</small></li>
                 <li><small>Duplicate reader registrations will be deactivated</small></li>
                 <li><small>Contact information provided above must be correct and subject to verification</small></li>
+                <li><small>Provide default password to student (newuser1234)</small></li>
+
 
             </ul>
         </div>
@@ -57,8 +59,8 @@
         <div class="row">
             <nav class="navbar bg-body-light">
                 <div class="container-fluid justify-content-center align-items-center">
-                    <form class="d-flex" role="search" action="/search_reader" method="get">
-                        <input class="form-control me-2" type="text" placeholder="Search Reader Name" name="query">
+                    <form class="d-flex" role="search" action="{% url 'search_reader' %}" method="get">
+                        <input class="form-control me-2" type="text" placeholder="Search by Username" name="query">
                         <button class="btn btn-outline-primary" type="submit">Search</button>
                     </form>
                 </div>
@@ -79,31 +81,32 @@
             </div>
 
         <div class="row" style="margin-top: 20px;">
-            <div class="container" style="overflow-y: auto; height: 400px;">
+            <div class="container" style="overflow-y: auto; height: 800px;">
                 <table class="table table-hover">
                     <thead>
                         <tr>
                             <td>Reader Id</td>
-                            <td>Name</td>
-                            <td>Contact</td>
-                            <td>Reference Id</td>
-                            <td>Address</td>
+                            <td>Username</td>
+                            <td>First Name</td>
+                            <td>Last Name</td>
+                            <td>Email</td>
                         </tr>
                     </thead>
                     <tbody>
                         {% for reader in readers %}
                             <tr>
-                                <td>{{reader.reference_id}}</td>
+                                <td>{{reader.id}}</td>
                                 <td>
-                                    {% if reader.active %}
-                                        <span class="btn btn-success">{{reader.reader_name}}</span>
+                                    {% comment %} {% if reader.active %}
+                                        <span class="btn btn-success">{{reader.username}}</span>
                                     {% else %}
-                                        <span class="btn btn-secondary">{{reader.reader_name}}</span>
-                                    {% endif %}
+                                        <span class="btn btn-secondary">{{reader.username}}</span>
+                                    {% endif %} {% endcomment %}
+                                    <span class="btn btn-success">{{reader.username}}</span>
                                 </td>
-                                <td>{{reader.reader_contact}}</td>
-                                <td>{{reader.reference_id}}</td>
-                                <td>{{reader.reader_address}}</td>
+                                <td>{{reader.first_name}}</td>
+                                <td>{{reader.last_name}}</td>
+                                <td>{{reader.email}}</td>
                             </tr>
                         {% endfor %}
 
@@ -111,17 +114,19 @@
                         <tr>
                             <td>{{reader.id}}</td>
                             <td>
-                                {% if reader.active %}
-                                    <span class="btn btn-success">{{reader.reader_name}}</span>
+                                {% comment %} {% if reader.active %}
+                                    <span class="btn btn-success">{{reader.username}}</span>
                                 {% else %}
-                                    <span class="btn btn-secondary">{{reader.reader_name}}</span>
-                                {% endif %}
+                                    <span class="btn btn-secondary">{{reader.username}}</span>
+                                {% endif %} {% endcomment %}
+                                <span class="btn btn-success">{{reader.username}}</span>
                             </td>
-                            <td>{{reader.reader_contact}}</td>
-                            <td>{{reader.reference_id}}</td>
-                            <td>{{reader.reader_address}}</td>
+                            <td>{{reader.first_name}}</td>
+                            <td>{{reader.last_name}}</td>
+                            <td>{{reader.email}}</td>
                         </tr>
-                        {% endfor %}
+                    {% endfor %}
+
                     </tbody>
                 </table>
             </div>

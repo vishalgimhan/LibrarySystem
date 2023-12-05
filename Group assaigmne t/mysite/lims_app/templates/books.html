@@ -4,21 +4,16 @@
 
 {% block main_content %}
 
-
-
 <div class="container-flex text-center justify-content-center align-items-center" style="padding-top: 10px; padding-bottom: 20px; margin-left: 10px; vertical-align: middle;">
     <div class="row justify-content-center align-items-center" style="margin-top: 10px; height: 50px;">
         <div class="col-md-4 text-light d-flex align-items-center justify-content-center" style="background-color: #4B088A; height: 35py px;">
-            <h5>Search for Books</h5>
-            
+            <h3 style="margin-top: 15px;">Search for Books</h5> 
         </div>        
-       
     </div>
 </div>
 
-
 <div class="search-toolbar text-center">
-    <form class="form-inline d-flex justify-content-center" action="/search_book" method="get">
+    <form class="form-inline d-flex justify-content-center" action="/books/search" method="get">
         <div class="form-group mx-sm-3 mb-2">
             <input type="text" class="form-control" name="query" placeholder="Search for book name...">
         </div>
@@ -26,164 +21,104 @@
     </form>
 </div>
 
-
-
-<div class="buttons d-flex justify-content-center" style="margin-top: 15px;">
-    <button class="btn btn-primary" style="margin-right: 15px;" onclick="handleUpload()">Upload</button>
-    <button class="btn btn-secondary" onclick="handleButton2()">Add a Book</button>
-</div>
-
-<form id="uploadForm" style="display: none;">
-    <input type="file" id="fileInput" name="file" accept=".csv, .xlsx, .xls">
-    <button type="button" onclick="submitUpload()">Submit</button>
-</form>
-
-<script>
-    function handleUpload() {
-        
-        document.getElementById('uploadForm').style.display = 'block';
-    }
-
-    function submitUpload() {
-        // Get the selected file
-        const fileInput = document.getElementById('fileInput');
-        const file = fileInput.files[0];
-
-        if (file) {
-            // Create a FormData object to send the file
-            const formData = new FormData();
-            formData.append('file', file);
-
-            
-            alert('File uploaded successfully!');
-
-            
-            document.getElementById('uploadForm').style.display = 'none';
-        } else {
-            alert('Please select a file.');
-        }
-    }
-</script>
-
-
-
-<br><br>
-<div>
+<br>
+<div style="margin-left: 60px;">
   {% if book_results %}
   <div class="search-results">
       <h5>Search Results for "{{ query }}"</h5>
       <p>{{book_results|length}} books available.</p>
-      {% for book in book_results %}
-    
-      {% endfor %}
-  </div>
   {% else  %}
     <h5>No results found for {{ query }}</h5>
     <p>{{books|length}} books available.</p>
   {% endif %}
   </div>
+</div>
 
-<!-- Add this form for file upload -->
-<form id="uploadForm" style="display: none;">
-    <input type="file" id="fileInput" name="file" accept=".csv, .xlsx, .xls">
-    <button type="button" onclick="submitUpload()">Submit</button>
-</form>
-
-<script>
-    function handleUpload() {
-        
-        document.getElementById('uploadForm').style.display = 'block';
-    }
-
-    function submitUpload() {
-        // Get the selected file
-        const fileInput = document.getElementById('fileInput');
-        const file = fileInput.files[0];
-
-        if (file) {
-            // Create a FormData object to send the file
-            const formData = new FormData();
-            formData.append('file', file);
-
-            
-            alert('File uploaded successfully!');
-
-            
-            document.getElementById('uploadForm').style.display = 'none';
-        } else {
-            alert('Please select a file.');
-        }
-    }
-</script>
-
-
-<div class="row" style="margin-top: 20px;">
+<div class="row" style="margin-left: 40px;">
     <div class="container" style="overflow-y: auto; height: 400px;">
         <table class="table table-hover">
-        
-          <thead style="background-color: #f2f2f2;font-weight: bold;">
-              <tr>
-                  <th >Book Name</th>
-
-                  <th>ISBN</th>
-                  <th >Author</th>
-                  <th >Category</th>
-                  <th >Actions</th>
-              </tr>
-          </thead>
-          <tbody>
-              {% for book in books %}
-              <tr>
-                  <td>{{ book.book_name }}</td>
-                  <td>{{ book.ISBN }}</td>
-                  <td>{{ book.author }}</td>
-                  <td>{{ book.category }}</td>
-                  <td>
-                      <button class="btn btn-success" onclick="addToBag('{{ book.ISBN }}')">Add to Bag</button>
-                  </td>
-              </tr>
-              <tr>
-                <td>The Hobbit</td>
-                <td>ISBN-005</td>
-                <td>J.R.R. Tolkien</td>
-                <td>Fantasy</td>
-                <td>
-                    <div class="input-group">
-                        <div class="input-group-append">
-                            <button class="btn btn-success" onclick="addToBag('ISBN-001')">Add to Bag</button>
-                        </div>
-                    </div>
-                </td>
-              </tr>
+            <thead style="background-color: #f2f2f2;font-weight: bold;">
+                <tr>
+                    <th>Cover</th>
+                    <th>Book Name</th>
+                    <th>ISBN</th>
+                    <th>Author</th>
+                    <th>Category</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in books %}
+                <tr>
+                    <td>
+                    {% if book.book_image %}
+                        <img src="{{book.book_image.url}}" alt="" class="img-fluid img-thumbnail shadow-sm" height="50" width="50">
+                    {% else %}
+                        <img src="#" alt="" class="img-fluid">
+                    {% endif %}
+                    </td>
+                    <td>{{ book.book_name }}</td>
+                    <td>{{ book.ISBN }}</td>
+                    <td>{{ book.author }}</td>
+                    <td>{{ book.category }}</td>
+                    <td>
+                        {% if book.id in baglist_books %}
+                            <form action="{% url 'removebag' %}" class="d-inline">
+                                <input type="hidden" name="bk_id" value={{book.id}} />
+                                <button pid={{book.id}} type="submit" class="btn btn-secondary minus-baglist" >Add to Bag</button>
+                            </form>
+                        {% else %}
+                            <form action="{% url 'add-to-bag' %}" class="d-inline">
+                                <input type="hidden" name="bk_id" value={{book.id}} />
+                                <button pid={{book.id}} type="submit" class="btn btn-success plus-baglist" >Add to Bag</button>
+                            </form>
+                        {% endif %}
+                    
+                        {% if book.id in wishlist_books %}
+                            <a pid={{book.id}} class="minus-wishlist btn btn-danger btn-sm shadow px-5 py-2 ms-4"><i class="fas fa-heart fa-lg"></i></a>
+                        {% else %}
+                            <a pid={{book.id}} class="plus-wishlist btn btn-success btn-sm shadow px-5 py-2 ms-4"><i class="fas fa-heart fa-lg"></i></a>
+                        {% endif %}
+                    </td>
+                </tr>
               {% endfor %}
-  
-            </div>
-            
-            </div>
-            <script>
-                function addToBag(isbn) {
-                // You can implement the logic to add the book with the given ISBN to the shopping bag here
-                alert('Added to Bag: ' + isbn);
-                }
-            </script>
-            
-            <script>
-                function addToBag(isbn) {
-                    // Get the quantity input for the corresponding book
-                    const quantityInput = document.getElementById(`quantity${isbn}`);
-                    const quantity = parseInt(quantityInput.value);
-
-                
-                    }
-                
-            </script>
-
-        </tbody>
-</table>
-
-
- 
- 
-
-
+              {% for book in book_results %}
+                <tr>
+                    <td>
+                    {% if book.book_image %}
+                        <img src="{{book.book_image.url}}" alt="" class="img-fluid img-thumbnail shadow-sm" height="50" width="50">
+                    {% else %}
+                        <img src="#" alt="" class="img-fluid">
+                    {% endif %}
+                    </td>
+                    <td>{{ book.book_name }}</td>
+                    <td>{{ book.ISBN }}</td>
+                    <td>{{ book.author }}</td>
+                    <td>{{ book.category }}</td>
+                    <td>
+                        {% if book.id in baglist_books %}
+                            <form action="{% url 'removebag' %}" class="d-inline">
+                                <input type="hidden" name="bk_id" value={{book.id}} />
+                                <button pid={{book.id}} type="submit" class="btn btn-secondary minus-baglist" >Add to Bag</button>
+                            </form>
+                        {% else %}
+                            <form action="{% url 'add-to-bag' %}" class="d-inline">
+                                <input type="hidden" name="bk_id" value={{book.id}} />
+                                <button pid={{book.id}} type="submit" class="btn btn-success plus-baglist" >Add to Bag</button>
+                            </form>
+                        {% endif %}
+                    
+                        {% if book.id in wishlist_books %}
+                            <a pid={{book.id}} class="minus-wishlist btn btn-danger btn-sm shadow px-5 py-2 ms-4"><i class="fas fa-heart fa-lg"></i></a>
+                        {% else %}
+                            <a pid={{book.id}} class="plus-wishlist btn btn-success btn-sm shadow px-5 py-2 ms-4"><i class="fas fa-heart fa-lg"></i></a>
+                        {% endif %}
+                    </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+           
 {% endblock %}

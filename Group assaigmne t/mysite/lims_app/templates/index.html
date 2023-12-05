@@ -21,6 +21,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <!--script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> <!--font awesome icons-->
+    <script src="{% static "js/myscript.js" %}"></script>
     
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #A73118">
         <div class="container-fluid">
@@ -41,13 +43,13 @@
                             <a class="nav-link" aria-current="page" href="/home">HOME</a>
                         {% endif %}
                     </li>
-                    <li class="nav-item">
+                    {% comment %} <li class="nav-item">
                         {% if current_tab == 'readers' %}
                             <a class="nav-link active text-white" aria-current="page" href="/readers" style="color:#A73118;" >READERS</a>
                         {% else %}
                             <a class="nav-link" aria-current="page" href="/readers">READERS</a>
                         {% endif %}
-                    </li>
+                    </li> {% endcomment %}
                     <li class="nav-item">
                         {% if current_tab == 'books' %}
                             <a class="nav-link active text-white" aria-current="page" href="/books" style="color:#A73118;">BOOKS</a>
@@ -57,16 +59,16 @@
                     </li>
                     <li class="nav-item">
                         {% if current_tab == 'mybag' %}
-                            <a class="nav-link active text-white" aria-current="page" href="/mybag" style="color:#A73118;">MY BAG</a>
+                            <a class="nav-link active text-white" aria-current="page" href="{% url 'showbag' %}" style="color:#A73118;">MY BAG</a>
                         {% else %}
-                            <a class="nav-link" aria-current="page" href="/mybag">MY BAG</a>
+                            <a class="nav-link" aria-current="page" href="{% url 'showbag' %}">MY BAG</a>
                         {% endif %}
                     </li>
                     <li class="nav-item">
                         {% if current_tab == 'returns' %}
                             <a class="nav-link active text-white" aria-current="page" href="/returns" style="color:#A73118;">RETURNS</a>
                         {% else %}
-                            <a class="nav-link tex-white" aria-current="page" href="/returns">RETURNS</a>
+                            <a class="nav-link tex-white" aria-current="page" href="/returns">RETURN</a>
                         {% endif %}
                     </li>
                 </ul> 
@@ -74,27 +76,48 @@
 
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item dropdown mx-2">
-                    <a class="nav-link dropdown-toggle text-white" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Vishal </a>
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span class="text-capitalize">Admin Panel</span></a>
                     <ul class="dropdown-menu" aria-labelledby="profileDropdown">
-                        <li><a class="dropdown-item" href="#">Profile</a></li>
-                        <li><a class="dropdown-item" href="#">Orders</a></li>
-                        <li><a class="dropdown-item" href="#">Change Password</a></li>
+                        {% comment %} {% if user.username == 'admin' %} {% endcomment %}
+                        <li><a class="dropdown-item" href="/readers">Readers</a></li>
+                        <li><a class="dropdown-item" href="/adminbooks">Books</a></li>
+                        {% comment %} {% endif %} {% endcomment %}
+                    </ul>
+                </li>
+                
+                {% if request.user.is_authenticated %}
+                <li class="nav-item dropdown mx-2">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-user"></i>
+                        <span class="text-capitalize">{{user.username}}</span></a>
+                    <ul class="dropdown-menu" aria-labelledby="profileDropdown">
+                        <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+                        <li><a class="dropdown-item" href="{% url 'orders' %}">Orders</a></li>
+                        <li><a class="dropdown-item" href="{% url 'password_change' %}">Change Password</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                        <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
                     </ul>
                 </li>
                 <li class="nav-item mx-2">
-                    <a href="#" class="nav-link text-white">Cart 4</a>
+                    <a href="{% url 'showbag' %}" class="nav-link text-white"><i class="fa fa-shopping-bag"></i>
+                        <!--To show number of items in cart--> 
+                        <span class="badge bg-danger" id="totalitem">{% if totalitem > 0 %} {{totalitem}} {% endif %}</span>
+                    </a>
                 </li>
                 <li class="nav-item mx-2">
-                    <a href="#" class="nav-link text-white">Wishlist 4</a>
+                    <a href="{% url 'showwishlist' %}" class="nav-link text-white"><i class="fa fa-heart"></i>
+                        <span class="badge bg-danger" id="wishitem">{% if wishitem > 0 %} {{wishitem}} {% endif %}</span>
+                    </a>
                 </li>
+                {% else %}
                 <li class="nav-item mx-2">
                     <a href="{% url 'login' %}" class="nav-link text-white">Login</a>
                 </li>
                 <li class="nav-item mx-2">
                     <a href="{% url 'registration' %}" class="nav-link text-white">Registration</a>
                 </li>
+                {% endif %}
             </ul>
         </div>
     </nav>
@@ -107,6 +130,8 @@
 <footer class="container-fluid text-center p-2 mt-5 text-white" style="background-color: #A73118">
   Copyright 2023 || UOM
 </footer>
+
+
 
 </html>
 
